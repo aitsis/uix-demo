@@ -1,5 +1,5 @@
-from uix import app
+from uix import UIX
 
-if __name__ == '__main__':
-    app.start()
+app = UIX()
+app.start()
 
