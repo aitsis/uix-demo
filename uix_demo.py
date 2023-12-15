@@ -1,6 +1,7 @@
-from uix import uix_app as app
+import uix
 from uix.core.element import Element
-
-ui = Element()
-app.start(ui = ui, debug = True)
+# Main Application Instance
+app = uix.uix_app
+#ui = Element()
+app.start( debug = True)
 
