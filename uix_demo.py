@@ -1,9 +1,11 @@
 import uix
-from uix.core.element import Element
+from uix.elements import div, button
 # Main Application Instance
 
 def main():
-    ui = Element("Hello World")
+    with div("main") as ui:
+        div("Hello World")
+        button("Hello World")
     return ui
 
 uix.start(ui = main, debug = True)
