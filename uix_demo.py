@@ -1,29 +1,20 @@
 import uix
-from uix.elements import div, button, grid
-counter = 0
-def next_counter():
-    global counter
-    counter = counter + 1
-    return counter
+from uix.elements import div, button, grid, border, row
 
-def on_click(ctx, id, value):
+from examples.basic.grid_example import grid_example
+from _menu import menu
+
+uix.html.add_css_file("uix_demo.css")
+
+def chooseExample(ctx, id, value):
     print("Clicked", id, value)
-    ctx.element.value = "Clicked!" + str(next_counter())
-
-def button1(value):
-    button(value).on("click",on_click)
-
-def comp1():
-    with grid("",columns= "40% 1fr") as grid1:
-        grid1.style("width","400px")
-        button1("A!")
-        button1("B!")
-        button1("C!")
-        button1("D!")
-
-
-with div("Example") as main:
-    comp1()
-
-print(main.render())
+    
+with div("") as page:
+    page.style("padding","10px")
+    with grid("",columns = "150px 600px") as main:
+        main.cls("main")
+        menu()
+        with div("") as content:
+            content.cls("content border")
+        
 uix.start(ui = main,debug=True)
