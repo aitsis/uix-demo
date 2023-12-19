@@ -28,3 +28,4 @@ def comp1():
 def grid_example():
     with div("") as main:
         comp1()
+    return main
