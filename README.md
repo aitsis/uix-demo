@@ -7,7 +7,7 @@ $ python uix_demo.py
 
 for visiting examples Please select from left side menu
 
-Example Code: (from hello_world_example)
+Example Code: (from hello_world example)
 
 ```python
 from uix.elements import div
