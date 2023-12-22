@@ -1,7 +1,7 @@
 import uix
 import os
 import importlib
-from uix.elements import div, grid, container, md
+from uix.elements import div, grid, container, md # type: ignore
 from _menu import menu
 examples = {}
 readme = open("README.md").read()
@@ -20,10 +20,7 @@ def chooseExample(ctx, id, value):
     with content:
         getattr(examples[value]["module"], value+"_example")()
     content.update()
-        
-
-
-    
+            
 with div("") as page:
     with grid("",columns = "150px 600px") as main:
         main.cls("main")
@@ -33,4 +30,4 @@ with div("") as page:
             md(readme)
             
         
-uix.start(ui = page,debug=True)
+uix.start(ui = page,config = {"debug" : True})
