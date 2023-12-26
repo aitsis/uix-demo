@@ -2,7 +2,7 @@ import uix
 import os
 import importlib
 from threading import Timer
-from uix.elements import div, grid, container, md # type: ignore
+from uix.elements import div, grid, container, md2 # type: ignore
 from _menu import menu
 from uix.pipes import status_pipe
 
@@ -34,7 +34,7 @@ with div("") as page:
         menu(updateExample,examples.keys())
         with container("",id ="content") as content:
             content.cls("content border")
-            md(readme)
+            md2(readme)
             
 
 uix.start(ui = page,config = {"debug" : True, "pipes":[status_pipe()], "locales_path":"locale"})

@@ -1,6 +1,6 @@
 from uix.elements import div, button, row # type: ignore
-from uix import T
 import uix
+from uix import T
 example_menu = ["Main", "File", "Help", "About", "Turkish", "English"]
 
 def draw_menu():
@@ -12,9 +12,7 @@ def on_menu_click(ctx, id, value):
         uix.set_lang("tr")
     elif id == "English":
         uix.set_lang("en")
-    with ctx.elements["menu"]:
-        draw_menu()
-    ctx.elements["menu"].update()
+    ctx.elements["menu"].update(draw_menu)
 
 def locale_example():
     with div("",) as locale_example:
