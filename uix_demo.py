@@ -7,7 +7,6 @@ from _menu import menu
 from uix.pipes import status_pipe
 
 readme = open("README.md").read()
-
 def get_examples_from_examples_folder():
     examples = {}
     for file_name in os.listdir("examples"):
@@ -37,5 +36,5 @@ with div("") as page:
             content.cls("content border")
             md(readme)
             
-        
-uix.start(ui = page,config = {"debug" : True, "pipes":[status_pipe()]})
+
+uix.start(ui = page,config = {"debug" : True, "pipes":[status_pipe()], "locales_path":"locale"})
