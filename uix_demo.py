@@ -6,13 +6,22 @@ from uix.elements import div, grid, container, md2 # type: ignore
 from _menu import menu
 from uix.pipes import status_pipe
 
-readme = open("README.md").read()
+# import examples.hello_world_example
+
+# from examples.hello_world_example import hello_world_example
+
 def get_examples_from_examples_folder():
     examples = {}
     for file_name in os.listdir("examples"):
         if file_name.endswith(".py"):
             module = importlib.import_module(f"examples.{file_name[:-3]}")
-            examples[file_name[:-11]] = {"module":module,"name":module.__name__}
+            print(module)
+            examples[file_name[:-11]] = {
+                "module":module,
+                "name": module.__name__,
+                "title": module.title if hasattr(module,"title") else file_name[:-11],
+                "description": module.description if hasattr(module,"description") else "",
+                "code": module.code if hasattr(module,"code") else ""}
     return examples
             
 examples = get_examples_from_examples_folder()
@@ -22,16 +31,23 @@ uix.html.add_css_file("uix_demo.css")
 def get_example(name):
     return getattr(examples[name]["module"], name+"_example")()
 
+def get_example_title(name):
+    return 
+
 def updateExample(ctx, id, value):
     content = ctx.elements["content"]
     with content:
         get_example(value)
     content.update()
-            
+
+readme = open("README.md").read()          
 with div("") as page:
+    with div("Header",id = "header") as header:
+        header.cls("header example_header")
     with grid("",columns = "150px 600px") as main:
         main.cls("main")
-        menu(updateExample,examples.keys())
+        menu_list  = [examples[example]["title"] for example in examples]
+        menu(updateExample, menu_list )
         with container("",id ="content") as content:
             content.cls("content border")
             md2(readme)
