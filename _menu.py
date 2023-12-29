@@ -1,5 +1,5 @@
 import os
-from uix.elements import div, button
+from uix.elements import div, button # type: ignore
 
 _on_selection_changed = None
 
