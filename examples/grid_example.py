@@ -1,4 +1,5 @@
 from uix.elements import div, button, grid
+from uix.elements._grid import title, description, sample as code
 counter = 0
 def next_counter():
     global counter
@@ -13,7 +14,7 @@ def button1(value):
     button(value).on("click",on_click)
 
 def comp1():
-    with grid("",columns= "40% 1fr") as grid1:
+    with grid("",columns= "40% 1fr").style("margin","auto") as grid1:
         grid1.style("width","400px")
         grid1.style("border","1px #aaa solid")
         grid1.style("padding","10px")

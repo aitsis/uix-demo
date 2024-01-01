@@ -1,12 +1,14 @@
-from uix.elements import input, button, border, div, col, form, row
+from uix.elements import input, button, border, div, row, col
+#from uix.elements._input import title, description, sample as code
 
 def input_example():
-    input("", placeholder="Kullanıcı Adı", required=True)
-    input("",type="password", placeholder="Şifre")
-    input("",type="number", placeholder="Sayı")
-    input("2024-01-01T00:00",type="datetime-local", placeholder="Tarih ve Saat")
-    input("",type="date")
-    input("",type="time")
+    with col("").style("height","min-content"):
+        input("", placeholder="Kullanıcı Adı", required=True).style("margin-bottom","10px")
+        input("",type="password", placeholder="Şifre").style("margin-bottom","10px")
+        input("",type="number", placeholder="Sayı").style("margin-bottom","10px")
+        input("2024-01-01T00:00",type="datetime-local", placeholder="Tarih ve Saat").style("margin-bottom","10px")
+        input("",type="date").style("margin-bottom","10px")
+        input("",type="time").style("margin-bottom","10px")      
     
     def on_change(ctx, id, value):
         if value!= "":
@@ -19,7 +21,7 @@ def input_example():
             
            
 
-    with border("").style("padding","20px").style("width","50%"):
+    with border("").style("padding","20px").style("width","100%"):
         input(id="userName", placeholder="Kullanıcı Adı", required=True).on("input",on_change)
         with row("").style("display","flex").style("justify-content","space-between"):
             div("Zorunlu alanlar doldurulmalıdır.").style("font-size","10px")
