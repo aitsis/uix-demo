@@ -38,9 +38,18 @@ def comp_example3(value):
     return main
 
 # -------------------------------------------------------------------------------        
-def comp_example(value):
+def component_example(id=None,value="Hello World!"):
     with div() as main:
         comp_example1(value)
         comp_example2(value)
         comp_example3(value)
     return main
+
+title="Component Example"
+
+description = '''
+    Component example shows how to create a component with the Element class.
+'''
+sample = """
+    Component Example
+"""
