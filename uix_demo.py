@@ -2,7 +2,7 @@ import uix
 import os
 import importlib
 from threading import Timer
-from uix.elements import div, grid, container, md2 # type: ignore
+from uix.elements import div, grid, container, md,text # type: ignore
 from _menu import menu
 from uix.pipes import status_pipe
 
@@ -15,7 +15,6 @@ def get_examples_from_examples_folder():
     for file_name in os.listdir("examples"):
         if file_name.endswith(".py"):
             module = importlib.import_module(f"examples.{file_name[:-3]}")
-            print(module)
             examples[file_name[:-11]] = {
                 "module":module,
                 "name": module.__name__,
@@ -31,13 +30,12 @@ uix.html.add_css_file("uix_demo.css")
 def get_example(name):
     return getattr(examples[name]["module"], name+"_example")()
 
-def get_example_title(name):
-    return 
-
 def updateExample(ctx, id, value):
+    print("Clicked", id, value)
+    
     content = ctx.elements["content"]
     with content:
-        get_example(value)
+        get_example(id)
     content.update()
 
 readme = open("README.md").read()          
@@ -46,11 +44,11 @@ with div("") as page:
         header.cls("header example_header")
     with grid("",columns = "150px 600px") as main:
         main.cls("main")
-        menu_list  = [examples[example]["title"] for example in examples]
+        menu_list  = [{"title":examples[key]["title"], "id":key}for key in examples]
         menu(updateExample, menu_list )
         with container("",id ="content") as content:
             content.cls("content border")
-            md2(readme)
+            md(readme)
             
 
 uix.start(ui = page,config = {"debug" : True, "pipes":[status_pipe()], "locales_path":"locale"})
