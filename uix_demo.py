@@ -27,22 +27,37 @@ examples = get_examples_from_examples_folder()
 
 uix.html.add_css_file("uix_demo.css")
 
+def get_description(name):
+    with div("",id = "description") as description:
+        description.cls("description")
+        md(examples[name]["description"])
+
 def get_example(name):
-    return getattr(examples[name]["module"], name+"_example")()
+    with container("",id = "example"):
+        getattr(examples[name]["module"], name+"_example")()
+
+def get_code(name):
+    with div("",id = "code") as code:
+        code.cls("code")
+        
+        md(f"```python\n{examples[name]['code']}\n```")
 
 def updateExample(ctx, id, value):
-    print("Clicked", id, value)
-    
     content = ctx.elements["content"]
+
     with content:
+        get_description(id)
         get_example(id)
+        get_code(id)
+
     content.update()
 
 readme = open("README.md").read()          
-with div("") as page:
-    with div("Header",id = "header") as header:
+with div("",) as page:
+    page.style("width","60%")
+    with div("", id="page-header") as header:
         header.cls("header example_header")
-    with grid("",columns = "150px 600px") as main:
+    with grid("",columns = "0.5fr 3fr", rows="100%") as main:
         main.cls("main")
         menu_list  = [{"title":examples[key]["title"], "id":key}for key in examples]
         menu(updateExample, menu_list )
