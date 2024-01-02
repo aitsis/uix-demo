@@ -1,7 +1,7 @@
-from uix.elements import md2
+from uix.elements import md
 
 def md_example():
-    main = md2('''# Hello World!
+    main = md('''# Hello World!
 ```python
 from uix.elements import div
 
