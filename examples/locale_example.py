@@ -12,10 +12,10 @@ def on_menu_click(ctx, id, value):
         uix.set_lang("tr")
     elif id == "English":
         uix.set_lang("en")
-    ctx.elements["menu"].update(draw_menu)
+    ctx.elements["menu_example"].update(draw_menu)
 
 def locale_example():
     with div("",) as locale_example:
-        with row("", id ="menu") as menu:
+        with row("", id ="menu_example") as menu:
             draw_menu()
     
