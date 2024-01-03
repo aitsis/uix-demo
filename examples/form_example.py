@@ -1,25 +1,23 @@
-from uix.elements import form, div, button, label
+from uix.elements import form, div, button, label, input, grid, col
+from uix.elements._form import title, description, sample as code
 
 def comp1():
-    with form(id="myForm", ) as form1:
+    with form(id="myForm") as form1:
+        form1.cls("border")
+        with grid("",columns="1fr 4fr") as grid1:
+            grid1.style("gap","10px")
+            grid1.style("padding","10px")
+            grid1.style("width","300px")
+            with col().style("font-size","20px"):
+                label("Name", usefor="name")
+                label("Email", usefor="email").style("margin-top","10px")
+            with col():
+                input("", id="name",  placeholder="Enter your name")
+                input("", id="email",  placeholder="Enter your email").style("margin-top","10px")
         
-        form1.style("width","400px")
-        form1.style("border","1px #aaa solid")
-        form1.style("padding","10px")
-        form1.style("gap","10px")
-        form1.style("border-radius","10px")
-        with label("Name") as label1:
-            label1.style("display","block")
-            label1.style("font-size","20px")
-            label1.style("margin-bottom","5px")
-        with label("Email") as label2:
-            label2.style("display","block")
-            label2.style("font-size","20px")
-            label2.style("margin-bottom","5px")
+            button("Submit").style("margin-top","10px")
+       
         
-        button("Submit").style("width","100%")
-        
-
 def form_example():
     with div("") as main:
         comp1()
