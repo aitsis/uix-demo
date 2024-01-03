@@ -1,16 +1,41 @@
-from uix.elements import div, button, grid, unorderedlist, listitem # type: ignore
+from uix.elements import unorderedlist, listitem # type: ignore
+from uix.elements._listitem import title, description, sample as code
+
+fake_data = [
+    {
+        "id": 1,
+        "name": "Leanne Graham",
+        "username": "Bret",
+        "email": "leannge@gmail.com"
+    },
+    {
+        "id": 2,
+        "name": "Ervin Howell",
+        "username": "Antonette",
+        "email": "ervin@gmail.com"
+    },
+    {
+        "id": 3,
+        "name": "Clementine Bauch",
+        "username": "Samantha",
+        "email": "clementine@gmail.com"
+    },
+    {
+        "id": 4,
+        "name": "Patricia Lebsack",
+        "username": "Karianne",
+        "email": "patricia@gmail.com"
+    },
+    {
+        "id": 5,
+        "name": "Chelsey Dietrich",
+        "username": "Kamren",
+        "email": "chelsey@gmail.com"
+    }
+]
 
 def listitem_example():
     with unorderedlist("", id="listitem_example"):
-        listitem("List Item 1",id="listitem1")           
-        listitem("List Item 11",id="listitem11")
-        listitem("List Item 12",id="listitem12")
-        listitem("List Item 13",id="listitem13")
-        listitem("List Item 14",id="listitem14")
-        listitem("List Item 15",id="listitem15")
-        listitem("List Item 16",id="listitem16")
-        listitem("List Item 17",id="listitem17")
-        listitem("List Item 18",id="listitem18")
-        listitem("List Item 19",id="listitem19")
-        listitem("List Item 20",id="listitem20")
-        listitem("List Item 21",id="listitem21")
+        global fake_data
+        for item in fake_data:
+            listitem(item["name"], id=item["id"])
