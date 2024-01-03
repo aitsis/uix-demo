@@ -50,6 +50,6 @@ title="Component Example"
 description = '''
     Component example shows how to create a component with the Element class.
 '''
-sample = """
+code = """
     Component Example
 """

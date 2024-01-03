@@ -9,6 +9,6 @@ title="Custom Example"
 description = '''
     Custom component example shows how to create a custom component.
 '''
-sample = """
+code = """
     Custom Component Example
 """
