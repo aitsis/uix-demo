@@ -3,7 +3,7 @@ from uix.elements._check import title, description, sample as code
 from uix.elements._div import div
 
 def check_example():
-    main = check("", id="check").on("click", on_click)
+    main = check("", id="check_example").on("click", on_click)
     test = div("test", "test")
     return main
 

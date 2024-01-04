@@ -19,7 +19,7 @@ def input_example():
             ctx.elements["submitButton"].attrs["disabled"] = True
             ctx.elements["submitButton"].update()
                     
-    with border("").style("padding","20px").style("width","50%"):
+    with border("").style("padding","20px"):
         input(id="userName", placeholder="Kullanıcı Adı", required=True).on("input",on_change)
         with row(""):
             div("Zorunlu alanlar doldurulmalıdır.").style("font-size","10px")

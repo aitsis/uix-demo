@@ -1,4 +1,5 @@
 from uix.elements import md
+from uix.elements._md import title, description, sample as code
 
 def md_example():
     main = md('''# Hello World!
