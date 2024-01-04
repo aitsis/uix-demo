@@ -2,7 +2,7 @@ import uix
 import os
 import importlib
 from threading import Timer
-from uix.elements import div, grid, container, md,button,row # type: ignore
+from uix.elements import div, grid, container, md,button,header, page # type: ignore
 from _menu import menu
 from uix.pipes import status_pipe
 
@@ -37,7 +37,7 @@ def get_examples_from_examples_folder():
 examples = get_examples_from_examples_folder()
 components = get_component_from_components_folder()
 current_list = examples
-
+current_tab = "example_button"
 uix.html.add_css_file("uix_demo.css")
 
 def get_description(name):
@@ -57,12 +57,20 @@ def get_code(name):
 
 def update_components_menu_list(ctx, id, value):
     global current_list
+    global current_tab
+    ctx.elements[current_tab].remove_class("active")
+    current_tab = id
+    ctx.elements[current_tab].add_class("active")
     current_list = components
     update_menu(ctx)
 
 def update_elements_menu_list(ctx, id, value):
     global current_list
+    global current_tab
     current_list = examples
+    ctx.elements[current_tab].remove_class("active")
+    current_tab = id
+    ctx.elements[current_tab].add_class("active")
     update_menu(ctx)
 
 def update_menu(ctx):
@@ -83,13 +91,12 @@ def updateExample(ctx, id, value):
     content.update()
 
 readme = open("README.md").read()          
-with div("") as page:
-    page.style("width","60%")
-    with row("").style("height","fit-content").style("gap","10px"):
-        button("Example", id="example_button").on("click",update_elements_menu_list)
-        button("Component", id="component_button").on("click",update_components_menu_list)
+with page("") as page_:
+    with header("").cls("header demo-header"):
+        button("Example", id="example_button").on("click",update_elements_menu_list).cls("active")
+        button("Component", id="component_button").on("click",update_components_menu_list) 
     with grid("",columns = "0.5fr 3fr", rows="100%") as main:
-        main.cls("main")
+        main.style("height","90%")
         menu_list  = [{"title":current_list[key]["title"], "id":key}for key in current_list]
         with div("",id ="menu").cls("menu border") as menu_border:
             menu(updateExample, menu_list )
@@ -98,4 +105,4 @@ with div("") as page:
             md(readme)
             
 
-uix.start(ui = page,config = {"debug" : True, "pipes":[status_pipe()], "locales_path":"locale"})
+uix.start(ui = page_,config = {"debug" : True, "pipes":[status_pipe()], "locales_path":"locale"})
