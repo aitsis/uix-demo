@@ -3,7 +3,7 @@ from uix.elements._textarea import title, description, sample as code
 from uix.elements._div import div
 
 def textarea_example():
-    main = textarea("","text", placeholder="Selam").on("input", on_change)
+    main = textarea("","textare_example", placeholder="Selam").on("input", on_change)
     div(id="test", value="Selam")
     return main
 
