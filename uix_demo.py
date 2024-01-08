@@ -102,7 +102,8 @@ with page("") as page_:
             menu(updateExample, menu_list )
         with container("",id ="content") as content:
             content.cls("content border")
-            md(readme)
+            #md(readme)
+            get_example("file")
             
 
 uix.start(ui = page_,config = {"debug" : True, "pipes":[status_pipe()], "locales_path":"locale"})
