@@ -7,8 +7,8 @@ def dialog_example1():
         with container("",):
             text("Dialog Example 1")
             text("Click anywhere to close")
-            button("Close")
-    button("Dialog 1").on("click", lambda ctx, id, value: dialog.open(dialog1))
+            button("Close").on("click", lambda ctx, id, value: dialog.hide(dialog1))
+    button("Dialog 1").on("click", lambda ctx, id, value: dialog.show(dialog1))
     return dialog1
 
 def dialog_example2():
@@ -16,8 +16,8 @@ def dialog_example2():
         with container("",):
             text("Dialog Example 2")
             text("Click the close button to close")
-            button("Close")
-    button("Dialog 2").on("click", lambda ctx, id, value: dialog.open(dialog2))
+            button("Close").on("click", lambda ctx, id, value: dialog.hide(dialog2))
+    button("Dialog 2").on("click", lambda ctx, id, value: dialog.show(dialog2))
     return dialog2
 
 def dialog_example():
