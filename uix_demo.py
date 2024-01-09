@@ -105,6 +105,6 @@ with page("") as page_:
             with container("",id ="content") as content:
                 content.cls("content border")
                 md(readme)
-            
+
 
 uix.start(ui = page_,config = {"debug" : True, "pipes":[status_pipe()], "locales_path":"locale"})
