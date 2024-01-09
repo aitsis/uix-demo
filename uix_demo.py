@@ -2,7 +2,7 @@ import uix
 import os
 import importlib
 from threading import Timer
-from uix.elements import div, grid, container, md,button,header, page # type: ignore
+from uix.elements import div, grid, container, md,button,header, page, main # type: ignore
 from _menu import menu
 from uix.pipes import status_pipe
 
@@ -92,17 +92,19 @@ def updateExample(ctx, id, value):
 
 readme = open("README.md").read()          
 with page("") as page_:
-    with header("").cls("header demo-header"):
+    with header("").cls("demo-header"):
         button("Example", id="example_button").on("click",update_elements_menu_list).cls("active")
-        button("Component", id="component_button").on("click",update_components_menu_list) 
-    with grid("",columns = "0.5fr 3fr", rows="100%") as main:
-        main.style("height","90%")
-        menu_list  = [{"title":current_list[key]["title"], "id":key}for key in current_list]
-        with div("",id ="menu").cls("menu border") as menu_border:
-            menu(updateExample, menu_list )
-        with container("",id ="content") as content:
-            content.cls("content border")
-            md(readme)
-            
+        button("Component", id="component_button").on("click",update_components_menu_list)
+    with main("") as main_: 
+        with grid("",columns = "0.5fr 3fr", rows="100%") as grid_:
+            grid_.style("height","100%")
+            grid_.style("width","100%")
+            menu_list  = [{"title":current_list[key]["title"], "id":key}for key in current_list]
+            with div("",id ="menu").cls("menu border") as menu_border:
+                menu(updateExample, menu_list )
+            with container("",id ="content") as content:
+                content.cls("content border")
+                md(readme)
+
 
 uix.start(ui = page_,config = {"debug" : True, "pipes":[status_pipe()], "locales_path":"locale"})
