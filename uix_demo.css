@@ -6,7 +6,6 @@
 .demo-header{
     align-items: end;
     gap: 10px;
-    min-height: 10%;
 }
 .example_header {
     border-radius: 3px 3px 0px 0px;; 
