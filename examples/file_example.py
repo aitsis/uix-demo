@@ -1,13 +1,14 @@
 import uix
 
-from uix.elements import file, div, image, col, row, progress
+from uix.elements import file, div, image, col, row, progress,check, button
 
+from uix.core.file import File 
 def lineitem(value):
     div(value).style("padding","5px;")
 
 def upload_file(ctx, id, value):
     print("upload_file",id)
-    ctx.elements["file"].upload(id)
+    ctx.elements["file_123"].upload(id)
     
 
 def line(file):
@@ -56,9 +57,12 @@ def file_callback(ctx, id, event, data, status):
 
 
 def file_example():
+    multiple = False
     with div(id="root").style("max-height","80%").style("overflow","auto") as root:
-        file(id="file", multiple=True,callback = file_callback, accept="image/png,image/jpeg,image/gif")
+        check(multiple, id="multiple", disabled = False).on("change", lambda ctx, id, value: ctx.elements["file_123"].set_attr("multiple",value))
+        file(id="file_123", multiple=multiple,callback = file_callback, accept="image/png,image/jpeg,image/gif")
         div("Files:", id="files").style("margin-top","10px")
+        button("toggle disable checkbox", id="disable_checkbox").on("click", lambda ctx, id, value: ctx.elements["multiple"].set_attr("disabled",not ctx.elements["multiple"].get_attr("disabled")))
     return root
 
 
