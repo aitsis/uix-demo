@@ -1,11 +1,11 @@
 import uix
 
-from uix.elements import file, div, image, col, row, progress,check, button
+from uix.elements import file, div, image, col, row, progress, check, button
 
 from uix.core.file import File 
 def lineitem(value):
     div(value).style("padding","5px;")
-
+    
 def upload_file(ctx, id, value):
     print("upload_file",id)
     ctx.elements["file_123"].upload(id)
