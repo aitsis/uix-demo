@@ -15,13 +15,8 @@ uix.start(ui = main, config={"debug":True})
 
 
 # TODO
-# width and height eklenecek
 
 # eklenecek elementler
-# meter
-# progress
-# main
-# footer
-# embed
+# !? meter
 # object ???
 
