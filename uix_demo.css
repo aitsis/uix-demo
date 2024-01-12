@@ -30,9 +30,20 @@
 }
 .menu-item {
     width: 100%;
-    height: 30px;
+    height: fit-content;
     margin-bottom: 2px;
-    background-color: var(--background-mask);
+    justify-content:start;
+    text-align: left;
+    box-shadow: none;
+}
+
+.title{
+    font-size: 24px;
+    font-weight: bold;
+    justify-content: start !important;
+    height: max-content;
+    width: 100%;
+    font-style: italic;
 }
 
 .description , .code{
@@ -43,16 +54,4 @@
 .content {
     overflow-y: auto;
     justify-content: start;
-}
-
-.menu-item:focus{
-    background-color: var(--ait);
-}
-
-.active {
-    background-color: var(--ait) !important;
-}
-
-header button{
-    background-color: var(--background);
 }

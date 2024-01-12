@@ -38,7 +38,13 @@ examples = get_examples_from_examples_folder()
 components = get_component_from_components_folder()
 current_list = examples
 current_tab = "example_button"
+current_link = "check"
 uix.html.add_css_file("uix_demo.css")
+
+def get_title(name):
+    with div("", id = "title") as title:
+        title.cls("title")
+        md(current_list[name]["title"])
 
 def get_description(name):
     with div("",id = "description") as description:
@@ -55,23 +61,24 @@ def get_code(name):
         
         md(f"```python\n{current_list[name]['code']}\n```")
 
-def update_components_menu_list(ctx, id, value):
+
+def update_menu_list(ctx,id , value):
     global current_list
     global current_tab
-    ctx.elements[current_tab].remove_class("active")
+    global current_link
+    ctx.elements[current_tab].add_class("btn-inactive")
+    if id == "example_button":
+        current_list = examples
+        current_tab = id
+        current_link = "check"
+    else:
+        current_list = components
+        current_tab = id
+        current_link = "imagecard"
     current_tab = id
-    ctx.elements[current_tab].add_class("active")
-    current_list = components
+    ctx.elements[current_tab].remove_class("btn-inactive")
     update_menu(ctx)
 
-def update_elements_menu_list(ctx, id, value):
-    global current_list
-    global current_tab
-    current_list = examples
-    ctx.elements[current_tab].remove_class("active")
-    current_tab = id
-    ctx.elements[current_tab].add_class("active")
-    update_menu(ctx)
 
 def update_menu(ctx):
     menu_list  = [{"title":current_list[key]["title"], "id":key}for key in current_list]
@@ -81,20 +88,26 @@ def update_menu(ctx):
     content.update()
 
 def updateExample(ctx, id, value):
+    global current_link
     print("Clicked", id, value)
+    ctx.elements[current_link].add_class("btn-inactive")
+    current_link = id
+    ctx.elements[current_link].remove_class("btn-inactive")
     content = ctx.elements["content"]
-    with content:
-        get_description(id)
-        get_example(id)
-        get_code(id)
+
+    with content: 
+            get_title(id)
+            get_description(id)
+            get_example(id)
+            get_code(id)
 
     content.update()
 
 readme = open("README.md").read()          
 with page("") as page_:
     with header("").cls("demo-header"):
-        button("Example", id="example_button").on("click",update_elements_menu_list).cls("active")
-        button("Component", id="component_button").on("click",update_components_menu_list)
+        button("Example", id="example_button").on("click",update_menu_list)
+        button("Component", id="component_button").on("click",update_menu_list).cls("btn-inactive")
     with main("") as main_: 
         with grid("",columns = "0.5fr 3fr", rows="100%") as grid_:
             grid_.style("height","100%")

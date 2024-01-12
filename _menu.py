@@ -9,7 +9,7 @@ def menu_select(ctx, id, value):
         _on_selection_changed(ctx, id, value)
 
 def menu_item(title, id):
-    button(title,id=id).on("click",menu_select).cls("menu-item").style("height","fit-content")
+    button(title,id=id).on("click",menu_select).cls("menu-item btn-inactive")
     
 def menu(on_selection_changed = None,menu_list = None):
     global _on_selection_changed
