@@ -2,7 +2,7 @@ import uix
 import os
 import importlib
 from threading import Timer
-from uix.elements import div, grid, container, md,button,header, page, main # type: ignore
+from uix.elements import div, grid, container, md, button, header, page, main # type: ignore
 from _menu import menu
 from uix.pipes import status_pipe
 
@@ -41,11 +41,6 @@ current_tab = "example_button"
 current_link = "check"
 uix.html.add_css_file("uix_demo.css")
 
-def get_title(name):
-    with div("", id = "title") as title:
-        title.cls("title")
-        md(current_list[name]["title"])
-
 def get_description(name):
     with div("",id = "description") as description:
         description.cls("description")
@@ -60,7 +55,6 @@ def get_code(name):
         code.cls("code")
         
         md(f"```python\n{current_list[name]['code']}\n```")
-
 
 def update_menu_list(ctx,id , value):
     global current_list
@@ -87,6 +81,7 @@ def update_menu(ctx):
         menu(updateExample, menu_list)
     content.update()
 
+
 def updateExample(ctx, id, value):
     global current_link
     print("Clicked", id, value)
@@ -96,7 +91,7 @@ def updateExample(ctx, id, value):
     content = ctx.elements["content"]
 
     with content: 
-            get_title(id)
+            div(value).cls("title")
             get_description(id)
             get_example(id)
             get_code(id)
@@ -118,6 +113,5 @@ with page("") as page_:
             with container("",id ="content") as content:
                 content.cls("content border")
                 md(readme)
-
 
 uix.start(ui = page_,config = {"debug" : True, "pipes":[status_pipe()], "locales_path":"locale"})
