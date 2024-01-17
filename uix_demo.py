@@ -6,33 +6,25 @@ from uix.elements import div, grid, container, md, button, header, page, main # 
 from _menu import menu
 from uix.pipes import status_pipe
 
-def get_component_from_components_folder():
-    components = {}
-    for file_name in os.listdir("examples/components"):
-        print(file_name)
+def get_info_from_folder(folder_path, folder_name):
+    all_items = {}
+    for file_name in sorted(os.listdir(folder_path)):
         if file_name.endswith(".py"):
-            module = importlib.import_module(f"examples.components.{file_name[:-3]}")
-            components[file_name[:-11]] = {
-                "module":module,
+            module = importlib.import_module(f"{folder_name}.{file_name[:-3]}")
+            all_items[file_name[:-11]] = {
+                "module": module,
                 "name": module.__name__,
-                "title": module.title if hasattr(module,"title") else file_name[:-11],
-                "description": module.description if hasattr(module,"description") else "",
-                "code": module.code if hasattr(module,"code") else ""
+                "title": getattr(module, "title", file_name[:-11]),
+                "description": getattr(module, "description", ""),
+                "code": getattr(module, "code", "")
             }
-    return components
+    return all_items
+
+def get_component_from_components_folder():
+    return get_info_from_folder("examples/components", "examples.components")
 
 def get_examples_from_examples_folder():
-    examples = {}
-    for file_name in os.listdir("examples"):
-        if file_name.endswith(".py"):
-            module = importlib.import_module(f"examples.{file_name[:-3]}")
-            examples[file_name[:-11]] = {
-                "module":module,
-                "name": module.__name__,
-                "title": module.title if hasattr(module,"title") else file_name[:-11],
-                "description": module.description if hasattr(module,"description") else "",
-                "code": module.code if hasattr(module,"code") else ""}
-    return examples
+    return get_info_from_folder("examples", "examples")
             
 examples = get_examples_from_examples_folder()
 components = get_component_from_components_folder()
