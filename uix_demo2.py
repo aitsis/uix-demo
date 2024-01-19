@@ -32,6 +32,12 @@ chart_value = {
             }
         }
     }
+import pprint as pp
+
+
+chart_str = pp.pformat(chart_value)
+print(isinstance(chart_str,str))
+print(chart_str)
 
 
 descriptions = [
@@ -101,6 +107,10 @@ def chart_example():
         c1.attrs["height"] ="500px"
         md(descriptions[1])
     return main
+
+import inspect
+strsource = inspect.getsource(chart_example)
+print(strsource)
 
 uix.start(ui = chart_example(), config={"debug":True})
 
