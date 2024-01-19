@@ -35,7 +35,7 @@ def get_description(name):
         md(current_list[name]["description"])
 
 def get_example(name):
-    with container("",id = "example"):
+    with div("",id = "example").size("100%", None):
         getattr(current_list[name]["module"], name+"_example")()
 
 def get_code(name):
