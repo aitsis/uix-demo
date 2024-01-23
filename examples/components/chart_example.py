@@ -1,6 +1,7 @@
 import uix
-from uix.elements import border, md
+from uix.elements import container, md
 from uix_components import chart
+print("Imported: chart_example")
 print("Imported: chart_example")
 
 chart_value = {
@@ -32,12 +33,6 @@ chart_value = {
             }
         }
     }
-import pprint as pp
-
-
-chart_str = pp.pformat(chart_value)
-print(isinstance(chart_str,str))
-print(chart_str)
 
 
 descriptions = [
@@ -96,28 +91,42 @@ Bu en temel kullanım şeklidir.
 """
 ]
 
-import numpy as np
-test_data = np.random.randint(0, 100, size=(2, 100))
-print(test_data)
 
 def chart_example():
-    with uix.elements.border().size("100%","100%").style("overflow-y","auto") as main:
+    with uix.elements.border().size("100%","fit-content") as main:
         md(descriptions[0])
-        c1 = chart(id="chart1",type="line",value= chart_value).size("100%","500px")
+        c1 = chart(id="chart1",type="line",value= chart_value).size("100%","100%")
         c1.attrs["height"] ="500px"
         md(descriptions[1])
     return main
 
-import inspect
-strsource = inspect.getsource(chart_example)
-print(strsource)
+title = "Chart"
 
-uix.start(ui = chart_example(), config={"debug":True})
+description = """
+# Chart
+Chart componenti ile chartjs kütüphanesindeki tüm chartlar kullanılabilir.
+"""
 
+code = """
+```python
 
-# TODO
+from uix_components import chart
 
-# eklenecek elementler
-# !? meter
-# object ???
+chart_value = {
+            "type": "line",
+            "data": {
+            "labels": ["January", "February", "March", "April", "May", "June", "July"],
+            "datasets": [
+                {
+                    "label": "My First dataset",
+                    "backgroundColor": "rgba(255,99,132,0.2)",
+                    "borderColor": "rgba(255,99,132,1)",
+                    "borderWidth": 1,
+                    "hoverBackgroundColor": "rgba(255,99,132,0.4)",
+                    "hoverBorderColor": "rgba(255,99,132,1)",
+                    "data": [65, 59, 80, 81, 56, 55, 40],
+                }
+            ],
+        }}
 
+"""
