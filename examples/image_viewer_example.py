@@ -4,14 +4,28 @@ from uix.elements import container, file
 
 from uix_components import image_viewer, basic_alert
 
-events = [
-        ["zoom-in", "Zoom in"],
-        ["zoom-out", "Zoom out"],
-        ["home", "Home"],
-        ["fullscreen", "Full Page"],
-        ["download", "Download"],
-        ["save", "Save"],
-    ]
+buttonGroup= {
+    "Zoom in": {
+        "icon": "fa-search-plus",
+        "icon_styles": {"font-size": "20px", "color": "var(--ait)"},
+    },
+    "Zoom out": {
+        "icon": "fa-search-minus",
+        "icon_styles": {"font-size": "20px", "color": "var(--ait)"},
+    },
+    "Home": {
+        "icon": "fa-home",
+        "icon_styles": {"font-size": "20px", "color": "var(--ait)"},
+    },
+    "Full screen": {
+        "icon": "fa-expand",
+        "icon_styles": {"font-size": "20px", "color": "var(--ait)"},
+    },
+    "Download": {
+        "icon": "fa-download",
+        "icon_styles": {"font-size": "20px", "color": "var(--ait)"},
+    }
+}
 
 def on_button_click(ctx, id, value):
     print("on_button_click",id,value)
@@ -40,7 +54,7 @@ def on_upload(ctx, id, event, data, status):
 def image_viewer_example():      
     with container() as main: 
         file(id="file1",accept="image/*",multiple=False,callback=on_upload).cls("center")
-        iw1 = image_viewer(id = "iw1", value="https://ai.ait.com.tr/wp-content/uploads/AIT_AI_LOGO.png",hasButtons=True).size(600,720)
+        iw1 = image_viewer(id = "iw1", value="https://ai.ait.com.tr/wp-content/uploads/AIT_AI_LOGO.png",buttonGroup=buttonGroup).size(600,720)
         iw1.on("button_click",on_button_click)
         basic_alert("Image Viewer",id="alert1",type="success")
     return main
