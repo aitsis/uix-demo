@@ -52,7 +52,7 @@
 
 .content {
     overflow-y: auto;
-    justify-content: start;
+    justify-content: space-between;
 }
 
 .filter-input {
@@ -60,4 +60,11 @@
     width: 99%;
     border-radius: 3px;
     padding: 0;
+}
+
+.example{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 1rem;
 }
