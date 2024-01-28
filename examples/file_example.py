@@ -59,7 +59,7 @@ def file_callback(ctx, id, event, data, status):
 def file_example():
     multiple = False
     with container() as root:
-        with row(id="root").style("max-height","80%").style("overflow","auto"):
+        with row(id="root").center():
             check(multiple, id="multiple", disabled = False).on("change", lambda ctx, id, value: ctx.elements["file_123"].set_attr("multiple",value))
             file(id="file_123", multiple=multiple,callback = file_callback, accept="image/png,image/jpeg,image/gif")
         div("Files:", id="files").style("margin-top","10px")
