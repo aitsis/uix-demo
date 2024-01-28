@@ -17,7 +17,6 @@ def on_key_down(ctx, id, value):
     if(value["key"] == "ArrowDown"):
         BRUSH_SIZE -= 1
     ctx.elements["events1"].value = str(value)
-    ctx.elements["border1"].get_attr("clientWidth",lambda id,value,event_name: print("clientWidth =", id,value,event_name))
 
 script = """
     event_handlers["test-canvas"] = function(id,value,event_name) {
