@@ -35,7 +35,7 @@ def get_description(name):
         md(current_list[name]["description"])
 
 def get_example(name):
-    with div("",id = "example").size("100%", None):
+    with div("",id = "example").cls("example").size("100%", "max-content"):
         getattr(current_list[name]["module"], name+"_example")()
 
 def get_code(name):
@@ -81,10 +81,12 @@ def updateExample(ctx, id, value):
     ctx.elements[current_link].remove_class("btn-inactive")
     content = ctx.elements["content"]
     with content:
-        div(value).cls("title")
-        get_description(id)
-        get_example(id)
+        with div("", id="example_container").style("width: 100%;"):
+            div(value).cls("title")
+            get_description(id)
+            get_example(id)
         get_code(id)
+    
     content.update()
 
 readme = open("README.md").read()
@@ -103,6 +105,7 @@ with page("") as page_:
                 with div("", id="menu").cls("menu border") as menu_border:
                     menu(updateExample, menu_list)
             with container("", id="content") as content:
+
                 content.cls("content border")
                 md(readme)
 
