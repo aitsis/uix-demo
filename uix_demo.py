@@ -100,7 +100,7 @@ with page("") as page_:
             grid_.style("height", "100%")
             grid_.style("width", "100%")
             menu_list = [{"title": current_list[key]["title"], "id": key} for key in current_list]
-            with div(""):
+            with div("").style("height: calc(100% - 2.2rem);"):
                 input("", placeholder="Filtrele" ,id="filtre").on("input", updateMenuList).cls("filter-input")
                 with div("", id="menu").cls("menu border") as menu_border:
                     menu(updateExample, menu_list)
