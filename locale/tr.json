@@ -4,5 +4,20 @@
     "Help": "Yardım",
     "About": "Hakkında",
     "Turkish": "Türkçe",
-    "English": "İngilizce"
+    "English": "İngilizce",
+    "Name": "Ad",
+    "Surname": "Soyad",
+    "Phone": "Telefon",
+    "Select Country": "Ülke Seçiniz",
+    "Select City": "Şehir Seçiniz",
+    "Select County": "İlçe Seçiniz",
+    "Select Neighborhood": "Mahalle Seçiniz",
+    "Address": "Adres",
+    "Address Title": "Adres Başlığı",
+    "Personal": "Kişisel",
+    "Corporate": "Kurumsal",
+    "Company Name": "Şirket Adı",
+    "Tax Number": "Vergi Numarası",
+    "Tax Office": "Vergi Dairesi",
+    "Add Billing Address": "Fatura Adresi Ekle"
 }
