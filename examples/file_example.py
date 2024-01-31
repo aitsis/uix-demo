@@ -1,6 +1,6 @@
 import uix
-
 from uix.elements import file, div, image, col, row, progress, check, button, container
+from uix.elements._file import title, description, sample as code
 
 from uix.core.file import File 
 def lineitem(value):
