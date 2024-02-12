@@ -53,6 +53,7 @@
 .content {
     overflow-y: auto;
     justify-content: space-between;
+    overflow-x: hidden;
 }
 
 .filter-input {
