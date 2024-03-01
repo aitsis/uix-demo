@@ -91,22 +91,23 @@ def updateExample(ctx, id, value):
 
 readme = open("README.md").read()
 
-with page("") as page_:
-    with header("").cls("demo-header"):
-        button("Example", id="example_button").on("click", update_menu_list)
-        button("Component", id="component_button").on("click", update_menu_list).cls("btn-inactive")
-    with main("") as main_:
-        with grid("", columns="0.5fr 3fr", rows="100%") as grid_:
-            grid_.style("height", "100%")
-            grid_.style("width", "100%")
-            menu_list = [{"title": current_list[key]["title"], "id": key} for key in current_list]
-            with div("").style("height: calc(100% - 2.2rem);"):
-                input("", placeholder="Filtrele" ,id="filtre").on("input", updateMenuList).cls("filter-input")
-                with div("", id="menu").cls("menu border") as menu_border:
-                    menu(updateExample, menu_list)
-            with container("", id="content") as content:
+def root():
+    with page("") as page_:
+        with header("").cls("demo-header"):
+            button("Example", id="example_button").on("click", update_menu_list)
+            button("Component", id="component_button").on("click", update_menu_list).cls("btn-inactive")
+        with main("") as main_:
+            with grid("", columns="0.5fr 3fr", rows="100%") as grid_:
+                grid_.style("height", "100%")
+                grid_.style("width", "100%")
+                menu_list = [{"title": current_list[key]["title"], "id": key} for key in current_list]
+                with div("").style("height: calc(100% - 2.2rem);"):
+                    input("", placeholder="Filtrele" ,id="filtre").on("input", updateMenuList).cls("filter-input")
+                    with div("", id="menu").cls("menu border") as menu_border:
+                        menu(updateExample, menu_list)
+                with container("", id="content") as content:
 
-                content.cls("content border")
-                md(readme)
-
-uix.start(ui = page_,config = {"debug" : True, "pipes":[status_pipe()], "locales_path":"locale"})
+                    content.cls("content border")
+                    md(readme)
+    return page_
+uix.start(ui = root,config = {"debug" : True, "pipes":[status_pipe()], "locales_path":"locale"})
