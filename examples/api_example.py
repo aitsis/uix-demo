@@ -34,14 +34,16 @@ def api_handler(paths, args):
             
     return uix.abort(404, "Not found")
 
+# Register the api handler with the name "api_example" --------------------------------------
+
 uix.register_api_handler("api_example", api_handler)
 
+# -------------------------------------------------------------------------------------------
 
 def api_example():
     with div("",) as api_demo:
         image("/api/api_example/50/01.png")
-        image("/api/api_example/100/02.png")
+        image("/api/api_example/100/05.png")
         image("/api/api_example/300/03.png")
-
-
+        image("/api/api_example/02.png")
     return api_demo
