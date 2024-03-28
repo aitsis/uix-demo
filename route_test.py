@@ -74,9 +74,9 @@ def menu():
             for item in current_list["list"]:
                 if filter_str.lower() in item.lower():
                     if len(context.session.paths) > 1 and context.session.paths[1] == item:
-                            link(item, href=f"/{current_list['title']}/{item}").cls("btn btn-active menu-item").style("text-decoration", "none").style("color", "white")
+                            link(item, href=f"/{current_list['title']}/{item}").cls("btn btn-active menu-item").style("text-decoration", "none").style("color", "var(--font-color)")
                     else:
-                            link(item, href=f"/{current_list['title']}/{item}").cls("btn btn-inactive menu-item").style("text-decoration", "none").style("color", "white")
+                            link(item, href=f"/{current_list['title']}/{item}").cls("btn btn-inactive menu-item").style("text-decoration", "none").style("color", "var(--font-color)")
     return menu
 
 def filter_menu(ctx, id, value):
@@ -102,9 +102,9 @@ def _root():
         with header("").cls("demo-header"):
             for list_item in lists:
                 if context.session.paths[0] == list_item["title"]:
-                        link(list_item["title"], href=f"/{list_item['title']}").cls("btn").style("text-decoration", "none").style("color", "white")
+                        link(list_item["title"], href=f"/{list_item['title']}").cls("btn").style("text-decoration", "none").style("color", "var(--font-color)")
                 else:
-                        link(list_item["title"], href=f"/{list_item['title']}").cls("btn btn-inactive").style("text-decoration", "none").style("color", "white")
+                        link(list_item["title"], href=f"/{list_item['title']}").cls("btn btn-inactive").style("text-decoration", "none").style("color", "var(--font-color)")
         
         with main("") as main_:
             with grid("", columns="0.5fr 3fr", rows="100%") as grid_:
