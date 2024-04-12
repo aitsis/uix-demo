@@ -2,7 +2,13 @@
 
 For run, before install requirements:
 https://github.com/aitsis/uix.git
+
 https://github.com/aitsis/uix-components.git
+
+For these requirements, you should install locally, for install enter repo folder and run: 
+```batch
+$ pip install -e .
+```
 
 these examples you can type;
 ```batch
