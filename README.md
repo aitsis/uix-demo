@@ -1,6 +1,10 @@
 # Welcome to uix-demo
 
-For run these examples you can type;
+For run, before install requirements:
+https://github.com/aitsis/uix.git
+https://github.com/aitsis/uix-components.git
+
+these examples you can type;
 ```batch
 $ python uix_demo.py
 ```
