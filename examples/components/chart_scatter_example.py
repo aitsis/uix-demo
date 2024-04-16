@@ -19,10 +19,13 @@ scatter1= [{
     }]
 scatter2 = [{'x': random.uniform(-20, 20), 'y': random.uniform(-20, 20)} for _ in range(100)]
 
+dataset_labes = ["imagine","repeater", "upscaler"]
+
 options = {
     "responsive": True,
     "legend_pos": "top",
     "title": "Burası Başlık",
+    "dataset_labels": dataset_labes,
 }
 
 charts = [scatter1,scatter2]

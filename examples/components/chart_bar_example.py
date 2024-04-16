@@ -22,10 +22,13 @@ list4 = np.random.randint(0,100,1000).tolist()
 
 label1 = ["ocak","şubat","mart","nisan","mayıs","haziran","temmuz","ağustos","eylül","ekim","kasım","aralık"]
 
+dataset_labes = ["imagine","repeater", "upscaler"]
+
 options = {
     "responsive": True,
     "legend_pos": "top",
     "title": "Burası Başlık",
+    "dataset_labels": dataset_labes
 }
 
 charts = [dict1,dict2,tupple1,tupple2,tupple3,list1,list2,list3,list4]
