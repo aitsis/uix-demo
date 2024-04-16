@@ -14,6 +14,8 @@ list3 = [(1, 2, 3, 4, 5), (6, 7, 8, 9, 10),(3,6,3,7,3)]
 
 label1 = ["ocak","şubat","mart","nisan","mayıs"]
 
+dataset_labes = ["imagine","repeater", "upscaler"]
+
 options = {
     "responsive": True,
     "legend_pos": "top",
@@ -24,7 +26,8 @@ options = {
         "rgb(255, 205, 86)",
         "rgb(75, 192, 192)",
         "rgb(153, 102, 255)"
-    ]
+    ],
+    "dataset_labels": dataset_labes,
 }
 
 charts = [tupple1,tupple2,tupple3,list1,list2,list3]
