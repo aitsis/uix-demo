@@ -23,6 +23,7 @@ list4 = np.random.randint(0,100,100).tolist()
 label1 = ["ocak","şubat","mart","nisan","mayıs","haziran","temmuz","ağustos","eylül","ekim","kasım","aralık"]
 
 dataset_labes = ["imagine","repeater", "upscaler"]
+dataset_border_colors = ['rgba(255, 99, 132, 1)','rgba(255, 159, 64, 1)','rgba(54, 162, 235, 1)']
 
 options = {
     "responsive": True,
@@ -30,6 +31,7 @@ options = {
     "title": "Burası Başlık",
     "tension": 0.2,
     "dataset_labels": dataset_labes,
+    "dataset_border_colors": dataset_border_colors,
 }
 
 charts = [dict1,dict2,tupple1,tupple2,tupple3,list1,list2,list3,list4]
