@@ -23,13 +23,19 @@ list4 = np.random.randint(0,100,1000).tolist()
 label1 = ["ocak","şubat","mart","nisan","mayıs","haziran","temmuz","ağustos","eylül","ekim","kasım","aralık"]
 
 dataset_labes = ["imagine","repeater", "upscaler"]
+dataset_background_colors = ['rgba(255, 99, 132, 0.2)','rgba(255, 159, 64, 0.2)','rgba(54, 162, 235, 0.2)']
+dataset_border_colors = ['rgba(255, 99, 132, 1)','rgba(255, 159, 64, 1)','rgba(54, 162, 235, 1)']
+dataset_hover_colors = ['rgba(255, 99, 132, 0.6)','rgba(255, 159, 64, 0.6)','rgba(54, 162, 235, 0.6)']
 
 options = {
     "responsive": True,
     "legend_pos": "top",
     "title": "Burası Başlık",
-    "dataset_labels": dataset_labes
-}
+    "dataset_labels": dataset_labes,
+    "dataset_background_colors": dataset_background_colors,
+    "dataset_border_colors": dataset_border_colors,
+    "dataset_hover_colors": dataset_hover_colors,
+    }
 
 charts = [dict1,dict2,tupple1,tupple2,tupple3,list1,list2,list3,list4]
 button_value =["Dict1","Dict2","Tuple1","Tuple2","Tuple3","List1","List2","List3","List4"]
