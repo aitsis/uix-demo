@@ -1,6 +1,7 @@
+import random
 import uix
 
-from uix.elements import container, file
+from uix.elements import container, file, row, button
 
 from uix_components import image_viewer, basic_alert
 
@@ -27,22 +28,14 @@ buttonGroup= {
     }
 }
 
-def on_button_click(ctx, id, value):
-    print("on_button_click",id,value)
-    ctx.elements["alert1"].open("alert-success",value)
-    # if value == "zoom-in":
-    #     ctx.elements["iw1"].zoom_in()
-    # elif value == "zoom-out":
-    #     ctx.elements["iw1"].zoom_out()
-    # elif value == "home":
-    #     ctx.elements["iw1"].home()
-    # elif value == "fullscreen":
-    #     ctx.elements["iw1"].fullscreen()
-    # elif value == "download":
-    #     ctx.elements["iw1"].download()
-    # elif value == "save":
-    #     ctx.elements["iw1"].save()
+def on_button_pil_image_click(ctx, id, value):
+    pil_image = create_image()
+    iw = ctx.session.elements["iw1"]
+    iw.value = pil_image
 
+def on_button_click(ctx, id, value):    
+    ctx.elements["alert1"].open("alert-success",value)
+    
 
 def on_upload(ctx, id, event, data, status):
     print("on_upload", id, event, data, status)
@@ -52,9 +45,40 @@ def on_upload(ctx, id, event, data, status):
             iw.value = data[0].url
         
 def image_viewer_example():      
-    with container() as main: 
-        file(id="file1",accept="image/*",multiple=False,callback=on_upload).cls("center")
+    with container() as main:
+        with row():
+            file(id="file1",accept="image/*",multiple=False,callback=on_upload).cls("center")
+            button("Show PIL Image",id="show_pil_image").on("click",on_button_pil_image_click)
         iw1 = image_viewer(id = "iw1", value="https://ai.ait.com.tr/wp-content/uploads/AIT_AI_LOGO.png",buttonGroup=buttonGroup).size(600,720)
         iw1.on("button_click",on_button_click)
         basic_alert("Image Viewer",id="alert1",type="success")
     return main
+
+from PIL import Image, ImageDraw, ImageFilter
+def create_image():
+    def random_color():
+        return (random.randint(0, 255), random.randint(0, 255), random.randint(0, 255))
+
+    def gradient_circle(draw, center, radius, color1, color2):
+        for i in range(radius, 0, -1):
+            color = (
+                int(color1[0] + (color2[0] - color1[0]) * i / radius),
+                int(color1[1] + (color2[1] - color1[1]) * i / radius),
+                int(color1[2] + (color2[2] - color1[2]) * i / radius)
+            )
+            draw.ellipse((center[0] - i, center[1] - i, center[0] + i, center[1] + i), fill=color)
+
+    img_size = 400
+    image = Image.new("RGB", (img_size, img_size), "white")
+    draw = ImageDraw.Draw(image)
+
+    # Draw a grid of gradient circles
+    spacing = 80  # Space between centers of circles
+    radius = 40
+    for x in range(spacing, img_size, spacing):
+        for y in range(spacing, img_size, spacing):
+            gradient_circle(draw, (x, y), radius, random_color(), random_color())
+
+    # Apply a slight blur to smooth out the gradients
+    image = image.filter(ImageFilter.GaussianBlur(2))
+    return image
