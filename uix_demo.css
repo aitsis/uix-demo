@@ -1,71 +1,78 @@
-.main {
-    border-radius: 3px;
-  
+.example-center{
+    justify-content: center;
+    align-items: center;
+    display: flex;
+    gap:10px;
 }
-
-.demo-header{
-    align-items: end;
-    gap: 10px;
-}
-.example_header {
-    border-radius: 3px 3px 0px 0px;; 
-    font-size: 24px;
+.example-content{
+    height: 100%;
+    width: 100%;
+    justify-content: space-between;
+    display: flex;
+    flex-direction: column;
+    overflow: auto;
+    padding: 0rem 2rem 0rem 2rem;
+    box-sizing: border-box;
 }
 .menu {
-    justify-content: center;
     width: 100%;
     height: 100%;
-    overflow: auto;
+    overflow-y: auto;
 }
 .video{
     width: 100%;
     height: auto;
 }
-.demo-header {
-    font-size: 24px;
-    border-radius: 3px 3px 0px 0px;
-}
 .image {
     width: 150px;
 }
 .menu-item {
-    width: 100%;
     height: fit-content;
     margin-bottom: 2px;
     justify-content:start;
     text-align: left;
     box-shadow: none;
 }
+.sidebar{
+    width: 15%;
+}
+.main-content{
+    width: 85%;
+}
 
-.title{
+@media screen and (min-width: 600px) and (max-width: 1279px){
+    .sidebar{
+        width: 32%;
+    }
+    .main-content{
+        width: 68%;
+    }
+}
+
+@media screen and (min-width: 1279px) and (max-width: 1550px){
+    .sidebar{
+        width: 27%;
+    }
+    .main-content{
+        width: 73%;
+    }
+}
+@media screen and (min-width: 1550px) and (max-width: 1724px){
+    .sidebar{
+        width: 22%;
+    }
+    .main-content{
+        width: 78%;
+    }
+}
+.search-input {
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 48 48' xml:space='preserve'%3E%3Ccircle fill='none' stroke='%23fff' stroke-width='2' stroke-miterlimit='10' cx='19.5' cy='12.5' r='8.5'/%3E%3Cpath fill='none' stroke='%23fff' stroke-width='2' stroke-miterlimit='10' d='m4 28 10-10'/%3E%3C/svg%3E");
+    background-position: .4rem .5rem;
+    background-repeat: no-repeat;
     width: 100%;
-    font-size: 40px;
-    font-weight: bold;
-    font-style: italic;
-    text-shadow: 4px 4px 8px #000000;
-}
-
-.description , .code{
-    /* height: max-content; */
-    width: 100%;
-}
-
-.content {
-    overflow-y: auto;
-    justify-content: space-between;
-    overflow-x: hidden;
-}
-
-.filter-input {
-    height: 2.2rem;
-    width: 99%;
-    border-radius: 3px;
-    padding: 0;
-}
-
-.example{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin-top: 1rem;
+    height: 3rem;
+    font-size: 16px;
+    padding: 12px 20px 12px 50px;
+    border: 1px solid #ddd;
+    margin-bottom: 12px;
 }
