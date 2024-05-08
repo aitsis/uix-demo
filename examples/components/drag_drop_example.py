@@ -65,9 +65,9 @@ event_handlers['drag_drop_elm'] = function (id, value, eventName) {
 class drag_drop(uix.Element):
     def __init__(self, id=None):
         super().__init__(id=id)
-        self.cls("example")
+        self.style("flex-direction: row; display: flex;")
         with self:
-            img = image(id= "drag_img", value="https://picsum.photos/seed/picsum8/200/200").style("margin-right: 1rem;")
+            img = image(id= "drag_img", value="https://picsum.photos/seed/picsum8/300/200").style("margin-right: 1rem;")
             img.get_client_handler_str = lambda event_name: self.get_client_handler_str(event_name)
             img.on("dragstart", lambda ctx, id, value: print(value, id , ctx))
             #img.attrs["draggable"] = "false" # default is true 
@@ -96,7 +96,7 @@ class drag_drop(uix.Element):
     def imageUploadDone(self, ctx, id, value):
         print(value, 'imageUploadDone')
 
-def drag_drop_input_image_example():
+def drag_drop_example():
     return drag_drop()
     
 
@@ -104,7 +104,7 @@ def drag_drop_input_image_example():
 title = "Drag and Drop Input Image"
 
 description = '''
-## drag_drop_input_image_example()
+## drag_drop_example()
 1. input_image elementi kullanılarak bir input alanı oluşturulur.
 2. Image sürüklenirken dragstart eventi ile img elementi sürüklenirken çalışacak fonksiyon belirlenir.
 3. Bu fonksiyon ile sadece img elementi sürüklenirken çalışacak fonksiyon belirlenir.
@@ -182,7 +182,7 @@ event_handlers['drag_drop_elm'] = function (id, value, eventName) {
 class drag_drop(uix.Element):
     def __init__(self, id=None):
         super().__init__(id=id)
-        self.cls("example")
+        
         with self:
             img = image(id= "drag_img", value="https://picsum.photos/seed/picsum8/200/200").style("margin-right: 1rem;")
             img.get_client_handler_str = lambda event_name: self.get_client_handler_str(event_name)
@@ -213,6 +213,6 @@ class drag_drop(uix.Element):
     def imageUploadDone(self, ctx, id, value):
         print(value, 'imageUploadDone')
 
-def drag_drop_input_image_example():
+def drag_drop_example():
     return drag_drop()
 '''
