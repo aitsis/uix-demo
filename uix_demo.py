@@ -1,10 +1,10 @@
+from uix.elements import link, button, icon, main, div, input, md, row, col
+from uix_components import tree_view
+from uix.core.session import context
+import importlib
 import uix
 import os
-import importlib
-from threading import Timer
-from uix.elements import div, grid, container, md, button, header, page, main, input # type: ignore
-from _menu import menu
-from uix.pipes import status_pipe
+uix.html.add_css_file("uix_demo.css", __file__)
 
 def get_info_from_folder(folder_path, folder_name):
     all_items = {}
@@ -23,91 +23,114 @@ def get_info_from_folder(folder_path, folder_name):
 
 examples = get_info_from_folder("examples", "examples")
 components = get_info_from_folder("examples/components", "examples.components")
-current_list = examples
-current_tab = "example_button"
-current_link = next(iter(current_list))
 
-uix.html.add_css_file("uix_demo.css")
+data = {
+    "Examples": {
+        "Elements": list(examples.keys()),
+        "Components": list(components.keys()),
+    }
+}
 
-def get_description(name):
-    with div("",id = "description") as description:
-        description.cls("description")
-        md(current_list[name]["description"])
+lists = [
+    {
+        "title": "examples",
+        "list": examples
+    },
+    {
+        "title": "components",
+        "list": components
+    }
+]
 
-def get_example(name):
-    with div("",id = "example").cls("example").size("100%", "max-content"):
-        getattr(current_list[name]["module"], name+"_example")()
+filter_str = ""
 
-def get_code(name):
-    with div("",id = "code") as code:
-        code.cls("code")
-        md(f"```python\n{current_list[name]['code']}\n```")
+def render_content():
+    current_list = get_current_list()
+    if current_list:
+        for item_name, item_data in current_list["list"].items():
+            if context.session.paths[1] == item_name:
+                md(item_data["description"]) 
+                with div().cls("example-center"): 
+                    getattr(item_data["module"], item_name + "_example")()  
+                md(f"```python\n{item_data['code']}\n```").cls("example-center")
 
-def update_menu_list(ctx, id, value):
-    global current_list
-    global current_tab
-    global current_link
-    ctx.elements[current_tab].add_class("btn-inactive")
-    if id == "example_button":
-        current_list = examples
-        current_tab = id
-        current_link = "check"
+def get_current_list():
+    for list_item in lists:
+        if context.session.paths[0] == list_item["title"]: 
+            return list_item
+    return None
+
+def select_label(ctx, id, value):
+    if value in data["Examples"]["Elements"]:
+        context.session.navigate(f'/examples/{value}')
     else:
-        current_list = components
-        current_tab = id
-        current_link = "imagecard"
-    current_tab = id
-    ctx.elements[current_tab].remove_class("btn-inactive")
-    update_menu(ctx, current_list)
+        context.session.navigate(f'/components/{value}')
 
-def update_menu(ctx, menu_list = current_list):
-    global current_link
-    current_link = next(iter(menu_list))
-    menu_list = [{"title": menu_list[key]["title"], "id": key} for key in menu_list]
-    content = ctx.elements["menu"]
-    with content:
-        menu(updateExample, menu_list)
-    content.update()
+def current_selected_tree():
+    global current_tree_title
+    if len(context.session.paths) > 1:
+        if context.session.paths[0] == "examples":
+            ctx.elements["details-Elements"].attrs["open"] = "True"
+        elif context.session.paths[0] == "components":
+            ctx.elements["details-Components"].attrs["open"] = "True"
+            
+def menu():
+    global filter_str
+    with div() as menu:
+        tree= tree_view(id="tree",data=data, callback= select_label, selected = current_path[1] if len(current_path[1]) > 1 else None)
+        current_selected_tree()
+        
+        if filter_str != "":
+            tree.style("display", "none")
+            for list_item in lists:
+                for item in list_item["list"]:
+                    if filter_str.lower() in item.lower():
+                        link(id=f'{item}"-label"', value = item, href=f"/{list_item['title']}/{item}").cls("btn btn-inactive menu-item").style("text-decoration", "none").style("color", "var(--font-color)")
+                        if len(context.session.paths) > 1 and context.session.paths[1] == item:
+                            ctx.elements[f'{item}"-label"'].set_style("background-color","var(--ait)")      
+    return menu
 
-def updateMenuList(ctx, id, value):
-    filtered_dict = {key: item for key, item in current_list.items() if value.lower() in item["title"].lower()}
-    update_menu(ctx, filtered_dict)
+def filter_menu(ctx, id, value):
+    global filter_str
+    filter_str = value
+    ctx.elements["menu-content"].update(menu)
 
-def updateExample(ctx, id, value):
-    global current_link
-    print("Clicked", id, value)
-    ctx.elements[current_link].add_class("btn-inactive")
-    current_link = id
-    ctx.elements[current_link].remove_class("btn-inactive")
-    content = ctx.elements["content"]
-    with content:
-        with div("", id="example_container").style("width: 100%;"):
-            div(value).cls("title")
-            get_description(id)
-            get_example(id)
-        get_code(id)
+def route_checker():
+    global current_path, ctx
+    if context.session.paths[0] == '' and len(context.session.paths) == 1:
+        context.session.navigate(f'/{lists[0]["title"]}')
+    for list_item in lists:
+        if context.session.paths[0] == list_item["title"]:
+            if len(context.session.paths) > 1:
+                if context.session.paths[1] not in list_item["list"]:
+                    context.session.navigate(f'/{list_item["title"]}/{next(iter(list_item["list"]))}')
+            else:
+                context.session.navigate(f'/{list_item["title"]}/{next(iter(list_item["list"]))}')
+    current_path = context.session.paths
+    ctx = context.session.context
+
+
+def last_input_value():
+    if filter_str is not "":
+        ctx.elements["filtre"].value = filter_str
+
+def _root():
+    route_checker()
+    with row():
+        with col().cls("sidebar border"):
+            input(id="filtre", placeholder="Filtrele", type="search").cls("search-input").on("input", filter_menu)
+            last_input_value()
+            with div(id="menu-content").cls("menu"):
+                menu()
+        with col().cls("main-content"):
+            with row().style("height: 10%; justify-content: end;"):
+                    with button(""):
+                        icon("fa-solid fa-filter")
+            row().style("height: 2px; background-color: var(--border-color)")
+            with main():       
+                if len(context.session.paths) > 1:
+                    with div().cls("example-content"):
+                        render_content()
     
-    content.update()
 
-readme = open("README.md").read()
-
-def root():
-    with page("") as page_:
-        with header("").cls("demo-header"):
-            button("Example", id="example_button").on("click", update_menu_list)
-            button("Component", id="component_button").on("click", update_menu_list).cls("btn-inactive")
-        with main("") as main_:
-            with grid("", columns="0.5fr 3fr", rows="100%") as grid_:
-                grid_.style("height", "100%")
-                grid_.style("width", "100%")
-                menu_list = [{"title": current_list[key]["title"], "id": key} for key in current_list]
-                with div("").style("height: calc(100% - 2.2rem);"):
-                    input("", placeholder="Filtrele" ,id="filtre").on("input", updateMenuList).cls("filter-input")
-                    with div("", id="menu").cls("menu border") as menu_border:
-                        menu(updateExample, menu_list)
-                with container("", id="content") as content:
-
-                    content.cls("content border")
-                    md(readme)
-    return page_
-uix.start(ui = root,config = {"debug" : True, "pipes":[status_pipe()], "locales_path":"locale"})
+uix.start(ui = _root, config = {"debug":True})

@@ -1,12 +1,10 @@
 from uix.elements import image, col, text
 from uix.elements._image import title, description, sample as code
 
-
-
 def image_example():
     image_url = "https://ai.ait.com.tr/wp-content/uploads/AIT_AI_LOGO.png"
     pil_image = create_image()
-    with col() as main:
+    with col().style("align-items: center;") as main:
         text("Static Image")
         main = image(image_url).cls("image")
         text("PIL Image")

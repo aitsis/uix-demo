@@ -1,7 +1,7 @@
 from uix.elements import div, icon, text # type: ignore
 
 def icon_example():
-    with div().cls("row").style("gap","10px"):
+    with div():
         icon("fa-solid fa-house fa-1x")
         icon("fa-solid fa-house fa-2x")
         icon("fa-solid fa-house fa-3x")
@@ -33,7 +33,7 @@ code = """
 from uix.elements import div, icon,text # type: ignore
 
 def icon_example():
-    with div().cls("row").style("gap","10px"):
+    with div():
         icon("fa-solid fa-house fa-1x")
         icon("fa-solid fa-house fa-2x")
         icon("fa-solid fa-house fa-3x")
