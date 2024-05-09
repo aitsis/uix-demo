@@ -1,13 +1,16 @@
-from uix.elements import link, button, icon, main, div, input, md, row, col
+from uix.elements import link, button, main, div, input, md, row, col, text
 from uix_components import tree_view
 from uix.core.session import context
 import importlib
 import uix
 import os
+import pandas as pd
 uix.html.add_css_file("uix_demo.css", __file__)
 
 def get_info_from_folder(folder_path, folder_name):
+    global df, all_items
     all_items = {}
+    df = pd.DataFrame()
     for file_name in sorted(os.listdir(folder_path)):
         if file_name.endswith(".py"):
             module_name = f"{folder_name}.{file_name[:-3]}"
@@ -17,12 +20,18 @@ def get_info_from_folder(folder_path, folder_name):
                 "name": module.__name__,
                 "title": getattr(module, "title", file_name[:-11]),
                 "description": getattr(module, "description", ""),
-                "code": getattr(module, "code", "")
+                "code": getattr(module, "code", ""),
+                "example_name": file_name[:-11] 
             }
+
     return all_items
 
 examples = get_info_from_folder("examples", "examples")
 components = get_info_from_folder("examples/components", "examples.components")
+all_items = {**examples, **components}
+df = pd.DataFrame(all_items).transpose() 
+print(df)
+df.to_csv(os.path.join("examples", "data.csv"), index=False)  
 
 data = {
     "Examples": {
@@ -43,6 +52,50 @@ lists = [
 ]
 
 filter_str = ""
+def advanced_search(value):
+    result_df = df[(df['code'].str.contains(value, case=False, regex=False)) | 
+        (df['example_name'].str.contains(value, case=False, regex=False))] 
+    print(result_df)
+    if result_df.empty:
+        return None
+    else:
+        results = []
+        for index, row in result_df.iterrows():
+
+            code_lines = row['code'].splitlines()
+            for line_num, line in enumerate(code_lines):
+                if value.lower() in line.lower():
+                    results.append({
+                    "title": row['title'],
+                    "code_line": line,
+                    "line_number": line_num + 1,
+                    "module": row['module'],
+                    "name": row['name'],
+                    "example_name": row['example_name']
+                    })
+         
+        return results
+
+
+def advanced_search_content(results):
+    with div(id="search-content").cls("area-content"):
+        if results is None:
+            text("No results found.").style("font-size: large") 
+        else:
+            for result in results:
+                example_name = result["name"].split(".")[1].split("_")[0]
+                example_type = result["name"].split(".")[0]
+                with div().cls("result-div"): 
+                    with link("",href=f"/{example_type}/{example_name}"):
+                        with col():
+                            text(result["example_name"])
+                            text(result["code_line"])
+
+def update(ctx, id, value):
+    with ctx.elements["advanced-search"]:
+            search_results = advanced_search(value)
+            advanced_search_content(search_results)
+    ctx.elements["search-content"].update()
 
 def render_content():
     current_list = get_current_list()
@@ -111,21 +164,28 @@ def route_checker():
 
 
 def last_input_value():
-    if filter_str is not "":
+    if filter_str != "":
         ctx.elements["filtre"].value = filter_str
+
+def open_search_area(ctx, id, value):
+    ctx.elements["search-area"].toggle_class("hidden")
 
 def _root():
     route_checker()
     with row():
         with col().cls("sidebar border"):
-            input(id="filtre", placeholder="Filtrele", type="search").cls("search-input").on("input", filter_menu)
+            input(id="filtre", placeholder="Filtrele", type="search").cls("search-input").on("input", filter_menu).style("width: 100%;")
             last_input_value()
             with div(id="menu-content").cls("menu"):
                 menu()
         with col().cls("main-content"):
-            with row().style("height: 10%; justify-content: end;"):
-                    with button(""):
-                        icon("fa-solid fa-filter")
+            with row().style("height: 10%; justify-content: end; position: relative; justify-content: center;"):
+                input_ = input(id="advanced-search", placeholder="Advanced Search", type="search", autocomplete= False).cls("search-input")
+                input_.on("input", update).on("click", open_search_area)
+                with div(id="search-area").cls("border hidden area"):
+                    with div(id="search-content").cls("area-content"):
+                        pass
+
             row().style("height: 2px; background-color: var(--border-color)")
             with main():       
                 if len(context.session.paths) > 1:

@@ -69,10 +69,34 @@
     background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 48 48' xml:space='preserve'%3E%3Ccircle fill='none' stroke='%23fff' stroke-width='2' stroke-miterlimit='10' cx='19.5' cy='12.5' r='8.5'/%3E%3Cpath fill='none' stroke='%23fff' stroke-width='2' stroke-miterlimit='10' d='m4 28 10-10'/%3E%3C/svg%3E");
     background-position: .4rem .5rem;
     background-repeat: no-repeat;
-    width: 100%;
+    width: 50%;
     height: 3rem;
     font-size: 16px;
     padding: 12px 20px 12px 50px;
     border: 1px solid #ddd;
     margin-bottom: 12px;
+}
+.area{
+    position: absolute; 
+    top: 70%; 
+    width: 50%; 
+    overflow: auto;
+    max-height: 400px;
+    z-index: 2;    
+    background-color: var(--background-secondary);
+}
+.area-content{
+    height: 100%;
+    overflow: auto;
+    width: 100%;
+    padding: 5px;
+    box-sizing: border-box;
+}
+.result-div{
+    height: max-content; 
+    background-color: var(--background); 
+    padding: 10px; 
+    border-radius: 5px; 
+    box-sizing: border-box; 
+    margin-bottom: 2px;
 }
