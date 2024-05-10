@@ -1,6 +1,6 @@
 import uix
 from uix_components import image_viewer, basic_alert, basic_select
-from uix.elements import button, image, col, row, md, textarea, select, option,label
+from uix.elements import col, md, textarea
 
 options = [
     {"id":"0","isSelect":False, "value":"Select an example ","example":
@@ -42,12 +42,9 @@ def on_options_change(ctx, id, value):
     ctx.elements["preview"].value = options[int(value)]["example"]
 
 
-def main():
-        with col():
-            with row().size(None, "60px"):
-                 basic_select(id = "mySelect",options = options, callback=on_options_change)
-    
-            textarea(id = "text", value=options[0]["example"]).on("input", on_change).size("100%", "100%")        
-            md(id = "preview", value=options[0]["example"]).size("100%", "100%").style("overflow: auto")
-        
-uix.start(ui=main, config={'debug': True,'port': 5001})
+def md_playground_example():
+     with col():
+          basic_select(id = "mySelect",options = options, callback=on_options_change).size("150px",None)
+          textarea(id = "text", value=options[0]["example"]).on("input", on_change).size("100%", "300px")        
+          md(id = "preview", value=options[0]["example"]).size("100%", "300px").style("overflow: auto")
+     
