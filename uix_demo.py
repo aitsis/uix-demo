@@ -1,12 +1,12 @@
-from uix.elements import link, button, main, div, input, md, row, col, text
+from uix.elements import link, main, div, input, md, row, col, text 
 from uix_components import tree_view
 from uix.core.session import context
+import pandas as pd
 import importlib
 import uix
 import os
-import pandas as pd
-uix.html.add_css_file("uix_demo.css", __file__)
 import re
+uix.html.add_css_file("uix_demo.css", __file__)
 
 def remove_underscore(key):
     return re.sub(r'_', ' ', key).title() 
@@ -58,16 +58,15 @@ lists = [
     }
 ]
 
-filter_str = ""
 def advanced_search(value):
     result_code_df = df[df['code'].str.contains(value, case=False, regex=False)] 
     result_title_df = df[df['example_name'].str.contains(value, case=False, regex=False)]
+    code_results = []
+    title_results = []
 
     if result_code_df.empty and result_title_df.empty:
-        return [], [] 
+        return title_results, code_results  
     else:
-        code_results = []
-        title_results = []
         for index, row in result_title_df.iterrows():
             title_results.append({
                 "example_title": row['example_title'],
@@ -94,12 +93,12 @@ def advanced_search_content(title_results, code_results):
             text("No results found.").style("font-size: large") 
         else:
             for result in title_results + code_results:
-                with div().cls("result-div"):
-                    with link("",href=f"/{result['example_type']}/{result['example_name']}"):
+                with div().cls("search-div"):
+                    with link("",href=f"/{result['example_type']}/{result['example_name']}").cls("search-link"):
                         with col():
-                            text(result["example_title"])
+                            text(result["example_title"]).style("font-size: large")
                             if result.get("code_line"):
-                                text(result["code_line"])
+                                text(result["code_line"]).cls("code-line")
 
 def update_search_area(ctx, id, value):
     with ctx.elements["advanced-search"]:
@@ -174,7 +173,7 @@ def _root():
                 input_.on("input", update_search_area).on("click", open_search_area)
                 with div(id="search-area").cls("border hidden area"):
                     with div(id="search-content").cls("area-content"):
-                        pass
+                        text("Search examples by title or code")
 
             row().style("height: 2px; background-color: var(--border-color)")
             with main():       
