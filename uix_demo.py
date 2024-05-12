@@ -134,7 +134,7 @@ def select_label(ctx, id, value):
 def menu():
     global filter_str
     with div() as menu:
-        tree_view(id="tree",data=tree_view_items, callback= select_label, selected= current_path[1] if len(current_path[1]) > 1 else None)
+        tree_view(id="tree",data=tree_view_items, callback= select_label, selected_label= current_path[1] if len(current_path[1]) > 1 else None)
         if len(context.session.paths) > 1:
             if context.session.paths[0] == "examples":
                 ctx.elements["details-Elements"].attrs["open"] = "True"
