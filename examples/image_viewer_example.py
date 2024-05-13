@@ -1,7 +1,7 @@
 import random
+from uix_components import image_viewer
 from uix.elements import file, row, button,div
-from uix_components import image_viewer, basic_alert
-from uix.elements._image import title, description, sample as code
+from uix_components._image_viewer._image_viewer import title, description, sample as code
 
 buttonGroup= {
     "Zoom in": {
@@ -31,8 +31,6 @@ def on_button_pil_image_click(ctx, id, value):
     iw = ctx.session.elements["iw1"]
     iw.value = pil_image
 
-def on_button_click(ctx, id, value):    
-    ctx.elements["alert1"].open("alert-success",value)    
 
 def on_upload(ctx, id, event, data, status):
     print("on_upload", id, event, data, status)
@@ -42,13 +40,11 @@ def on_upload(ctx, id, event, data, status):
             iw.value = data[0].url
         
 def image_viewer_example():      
-    basic_alert("Image Viewer",id="alert1",type="success")
     with div() as main:
-            with row():
-                file(id="file1",accept="image/*",multiple=False,callback=on_upload).cls("center")
-                button("Show PIL Image",id="show_pil_image").on("click",on_button_pil_image_click)
-            iw1 = image_viewer(id = "iw1", value="https://ai.ait.com.tr/wp-content/uploads/AIT_AI_LOGO.png",buttonGroup=buttonGroup).size(400,400)
-            iw1.on("button_click",on_button_click).cls("border")
+        with row():
+            file(id="file1",accept="image/*",multiple=False,callback=on_upload).cls("center")
+            button("Show PIL Image",id="show_pil_image").on("click",on_button_pil_image_click)
+        image_viewer(id = "iw1", value="https://ai.ait.com.tr/wp-content/uploads/AIT_AI_LOGO.png",buttonGroup=buttonGroup).size(400,400)
     return main
 
 from PIL import Image, ImageDraw, ImageFilter

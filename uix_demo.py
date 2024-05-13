@@ -1,12 +1,18 @@
-from uix.elements import link, button, icon, main, div, input, md, row, col
+from uix.elements import link, main, div, input, md, row, col, text 
 from uix_components import tree_view
 from uix.core.session import context
+import pandas as pd
 import importlib
 import uix
 import os
+import re
 uix.html.add_css_file("uix_demo.css", __file__)
 
-def get_info_from_folder(folder_path, folder_name):
+def remove_underscore(key):
+    return re.sub(r'_', ' ', key).title() 
+
+def get_info_from_folder(folder_path, folder_name, type):
+    global all_items
     all_items = {}
     for file_name in sorted(os.listdir(folder_path)):
         if file_name.endswith(".py"):
@@ -17,19 +23,29 @@ def get_info_from_folder(folder_path, folder_name):
                 "name": module.__name__,
                 "title": getattr(module, "title", file_name[:-11]),
                 "description": getattr(module, "description", ""),
-                "code": getattr(module, "code", "")
+                "code": getattr(module, "code", ""),
+                "example_title": remove_underscore(file_name[:-11]),
+                "example_name": file_name[:-11],
+                "example_type": type
             }
+
     return all_items
 
-examples = get_info_from_folder("examples", "examples")
-components = get_info_from_folder("examples/components", "examples.components")
+examples = get_info_from_folder("examples", "examples", "examples")
+components = get_info_from_folder("examples/components", "examples.components", "components")
+all_items = {**examples, **components}
+df = pd.DataFrame(all_items).transpose() 
 
-data = {
+tree_view_items = {
     "Examples": {
-        "Elements": list(examples.keys()),
-        "Components": list(components.keys()),
+        "Elements": [],
+        "Components": []
     }
 }
+for key in examples.keys():
+    tree_view_items["Examples"]["Elements"].append({remove_underscore(key) : key })
+for key in components.keys():
+    tree_view_items["Examples"]["Components"].append({remove_underscore(key) : key })
 
 lists = [
     {
@@ -42,7 +58,53 @@ lists = [
     }
 ]
 
-filter_str = ""
+def advanced_search(value):
+    result_code_df = df[df['code'].str.contains(value, case=False, regex=False)] 
+    result_title_df = df[df['example_name'].str.contains(value, case=False, regex=False)]
+    code_results = []
+    title_results = []
+
+    if result_code_df.empty and result_title_df.empty:
+        return title_results, code_results  
+    else:
+        for index, row in result_title_df.iterrows():
+            title_results.append({
+                "example_title": row['example_title'],
+                "example_type": row['example_type'],
+                "example_name": row['example_name']
+            })
+        for index, row in result_code_df.iterrows():
+            code_lines = row['code'].splitlines()
+            for line_num, line in enumerate(code_lines):
+                if value.lower() in line.lower():
+                    title_results.append({
+                    "code_line": line,
+                    "example_title": row['example_title'],
+                    "example_type": row['example_type'],
+                    "example_name": row['example_name']
+                    })
+         
+        return title_results, code_results
+
+
+def advanced_search_content(title_results, code_results):
+    with div(id="search-content").cls("area-content"):
+        if not (title_results or code_results):
+            text("No results found.").style("font-size: large") 
+        else:
+            for result in title_results + code_results:
+                with div().cls("search-div"):
+                    with link("",href=f"/{result['example_type']}/{result['example_name']}").cls("search-link"):
+                        with col():
+                            text(result["example_title"]).style("font-size: large")
+                            if result.get("code_line"):
+                                text(result["code_line"]).cls("code-line")
+
+def update_search_area(ctx, id, value):
+    with ctx.elements["advanced-search"]:
+        title_results, code_results = advanced_search(value)
+        advanced_search_content(title_results, code_results)
+    ctx.elements["search-content"].update()
 
 def render_content():
     current_list = get_current_list()
@@ -61,39 +123,25 @@ def get_current_list():
     return None
 
 def select_label(ctx, id, value):
-    if value in data["Examples"]["Elements"]:
-        context.session.navigate(f'/examples/{value}')
+    if id in examples.keys():
+        context.session.navigate(f"/examples/{id}")
+    elif id in components.keys():
+        context.session.navigate(f"/components/{id}")
     else:
-        context.session.navigate(f'/components/{value}')
-
-def current_selected_tree():
-    global current_tree_title
-    if len(context.session.paths) > 1:
-        if context.session.paths[0] == "examples":
-            ctx.elements["details-Elements"].attrs["open"] = "True"
-        elif context.session.paths[0] == "components":
-            ctx.elements["details-Components"].attrs["open"] = "True"
-            
+        print("Not found")
+    
+ 
 def menu():
     global filter_str
     with div() as menu:
-        tree= tree_view(id="tree",data=data, callback= select_label, selected = current_path[1] if len(current_path[1]) > 1 else None)
-        current_selected_tree()
-        
-        if filter_str != "":
-            tree.style("display", "none")
-            for list_item in lists:
-                for item in list_item["list"]:
-                    if filter_str.lower() in item.lower():
-                        link(id=f'{item}"-label"', value = item, href=f"/{list_item['title']}/{item}").cls("btn btn-inactive menu-item").style("text-decoration", "none").style("color", "var(--font-color)")
-                        if len(context.session.paths) > 1 and context.session.paths[1] == item:
-                            ctx.elements[f'{item}"-label"'].set_style("background-color","var(--ait)")      
+        tree_view(id="tree",data=tree_view_items, callback= select_label, selected_label= current_path[1] if len(current_path[1]) > 1 else None)
+        if len(context.session.paths) > 1:
+            if context.session.paths[0] == "examples":
+                ctx.elements["details-Elements"].attrs["open"] = "True"
+            elif context.session.paths[0] == "components":
+                ctx.elements["details-Components"].attrs["open"] = "True"
     return menu
 
-def filter_menu(ctx, id, value):
-    global filter_str
-    filter_str = value
-    ctx.elements["menu-content"].update(menu)
 
 def route_checker():
     global current_path, ctx
@@ -110,22 +158,23 @@ def route_checker():
     ctx = context.session.context
 
 
-def last_input_value():
-    if filter_str is not "":
-        ctx.elements["filtre"].value = filter_str
+def open_search_area(ctx, id, value):
+    ctx.elements["search-area"].toggle_class("hidden")
 
 def _root():
     route_checker()
     with row():
         with col().cls("sidebar border"):
-            input(id="filtre", placeholder="Filtrele", type="search").cls("search-input").on("input", filter_menu)
-            last_input_value()
             with div(id="menu-content").cls("menu"):
                 menu()
         with col().cls("main-content"):
-            with row().style("height: 10%; justify-content: end;"):
-                    with button(""):
-                        icon("fa-solid fa-filter")
+            with row().style("height: 10%; justify-content: end; position: relative; justify-content: center;"):
+                input_ = input(id="advanced-search", placeholder="Advanced Search", type="search", autocomplete= False).cls("search-input")
+                input_.on("input", update_search_area).on("click", open_search_area)
+                with div(id="search-area").cls("border hidden area"):
+                    with div(id="search-content").cls("area-content"):
+                        text("Search examples by title or code")
+
             row().style("height: 2px; background-color: var(--border-color)")
             with main():       
                 if len(context.session.paths) > 1:

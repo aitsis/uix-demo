@@ -36,43 +36,82 @@
 .sidebar{
     width: 15%;
 }
+
 .main-content{
     width: 85%;
 }
 
-@media screen and (min-width: 600px) and (max-width: 1279px){
-    .sidebar{
-        width: 32%;
-    }
-    .main-content{
-        width: 68%;
-    }
+.search-link:hover{
+    text-decoration: none;
 }
 
-@media screen and (min-width: 1279px) and (max-width: 1550px){
-    .sidebar{
-        width: 27%;
-    }
-    .main-content{
-        width: 73%;
-    }
+.search-div:hover{
+    background-color: var(--ait);
 }
-@media screen and (min-width: 1550px) and (max-width: 1724px){
-    .sidebar{
-        width: 22%;
-    }
-    .main-content{
-        width: 78%;
-    }
+
+.code-line{
+    color: white;
+    margin-left: 10px;
+    margin-top: 5px;
 }
+
 .search-input {
     background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 48 48' xml:space='preserve'%3E%3Ccircle fill='none' stroke='%23fff' stroke-width='2' stroke-miterlimit='10' cx='19.5' cy='12.5' r='8.5'/%3E%3Cpath fill='none' stroke='%23fff' stroke-width='2' stroke-miterlimit='10' d='m4 28 10-10'/%3E%3C/svg%3E");
     background-position: .4rem .5rem;
     background-repeat: no-repeat;
-    width: 100%;
+    width: 50%;
     height: 3rem;
     font-size: 16px;
     padding: 12px 20px 12px 50px;
     border: 1px solid #ddd;
     margin-bottom: 12px;
+}
+.area{
+    position: absolute; 
+    top: 70%; 
+    width: 50%; 
+    overflow: auto;
+    max-height: 400px;
+    z-index: 2;    
+    background-color: var(--background-secondary);
+}
+.area-content{
+    height: 100%;
+    overflow: auto;
+    width: 100%;
+    padding: 5px;
+    box-sizing: border-box;
+}
+.search-div{
+    height: max-content; 
+    background-color: var(--background); 
+    padding: 10px; 
+    border-radius: 5px; 
+    box-sizing: border-box; 
+    margin-bottom: 2px;
+}
+@media screen and (min-width: 600px) and (max-width: 1279px){
+    .sidebar{
+        width: 24%;
+    }
+    .main-content{
+        width: 76%;
+    }
+}
+
+@media screen and (min-width: 1279px) and (max-width: 1550px){
+    .sidebar{
+        width: 20%;
+    }
+    .main-content{
+        width: 80%;
+    }
+}
+@media screen and (min-width: 1550px) and (max-width: 1724px){
+    .sidebar{
+        width: 17%;
+    }
+    .main-content{
+        width: 83%;
+    }
 }
