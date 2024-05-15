@@ -1,4 +1,5 @@
-from uix.elements import link, main, div, input, md, row, col, text 
+from uix.elements import link, main, div, input, md, row, col, text
+from uix_components._codemirror.codemirror import codemirror
 from uix_components import tree_view
 from uix.core.session import context
 import pandas as pd
@@ -8,8 +9,18 @@ import os
 import re
 uix.html.add_css_file("uix_demo.css", __file__)
 
-def remove_underscore(key):
-    return re.sub(r'_', ' ', key).title() 
+def extract_code_from_file(file_path):
+    unwanted_keywords = ["title", "description"]
+    filtered_lines = []
+    found_title = False
+
+    with open(file_path, "r", encoding="utf-8") as file:
+        for line in file:
+            if any(re.match(rf"^\s*{keyword}\s*=", line) for keyword in unwanted_keywords):
+                found_title = True  
+            elif not found_title:  
+                filtered_lines.append(line)
+    return "".join(filtered_lines)
 
 def get_info_from_folder(folder_path, folder_name, type):
     global all_items
@@ -18,17 +29,16 @@ def get_info_from_folder(folder_path, folder_name, type):
         if file_name.endswith(".py"):
             module_name = f"{folder_name}.{file_name[:-3]}"
             module = importlib.import_module(module_name)
+            full_file_path = os.path.join(folder_path, file_name)
             all_items[file_name[:-11]] = {
                 "module": module,
                 "name": module.__name__,
-                "title": getattr(module, "title", file_name[:-11]),
+                "example_title": getattr(module, "title", "*unknown_title"),
                 "description": getattr(module, "description", ""),
-                "code": getattr(module, "code", ""),
-                "example_title": remove_underscore(file_name[:-11]),
+                "sample": extract_code_from_file(full_file_path),
                 "example_name": file_name[:-11],
                 "example_type": type
             }
-
     return all_items
 
 examples = get_info_from_folder("examples", "examples", "examples")
@@ -43,9 +53,9 @@ tree_view_items = {
     }
 }
 for key in examples.keys():
-    tree_view_items["Examples"]["Elements"].append({remove_underscore(key) : key })
+    tree_view_items["Examples"]["Elements"].append({all_items[key]["example_title"] : key })
 for key in components.keys():
-    tree_view_items["Examples"]["Components"].append({remove_underscore(key) : key })
+    tree_view_items["Examples"]["Components"].append({all_items[key]["example_title"] : key })
 
 lists = [
     {
@@ -59,7 +69,7 @@ lists = [
 ]
 
 def advanced_search(value):
-    result_code_df = df[df['code'].str.contains(value, case=False, regex=False)] 
+    result_code_df = df[df['sample'].str.contains(value, case=False, regex=False)] 
     result_title_df = df[df['example_name'].str.contains(value, case=False, regex=False)]
     code_results = []
     title_results = []
@@ -74,7 +84,7 @@ def advanced_search(value):
                 "example_name": row['example_name']
             })
         for index, row in result_code_df.iterrows():
-            code_lines = row['code'].splitlines()
+            code_lines = row['sample'].splitlines()
             for line_num, line in enumerate(code_lines):
                 if value.lower() in line.lower():
                     title_results.append({
@@ -83,7 +93,6 @@ def advanced_search(value):
                     "example_type": row['example_type'],
                     "example_name": row['example_name']
                     })
-         
         return title_results, code_results
 
 
@@ -112,9 +121,9 @@ def render_content():
         for item_name, item_data in current_list["list"].items():
             if context.session.paths[1] == item_name:
                 md(item_data["description"]) 
-                with div().cls("example-center"): 
+                with div(id="example-content").cls("example-center"):
                     getattr(item_data["module"], item_name + "_example")()  
-                md(f"```python\n{item_data['code']}\n```").cls("example-center")
+                codemirror(id="code-mirror", cm_parent_id="example-content", code=item_data["sample"], func_name=item_name + "_example")
 
 def get_current_list():
     for list_item in lists:
@@ -130,7 +139,6 @@ def select_label(ctx, id, value):
     else:
         print("Not found")
     
- 
 def menu():
     global filter_str
     with div() as menu:
