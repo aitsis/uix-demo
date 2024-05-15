@@ -1,5 +1,4 @@
 from uix.elements import datalist,input,option,button,text
-from uix.elements._datalist import title, description, sample as code
 
 def on_click(ctx,id,value):
     ctx.elements["output"].value = ctx.elements["carInput"].value
@@ -15,3 +14,14 @@ def datalist_example():
         option("BMW")
     button("Submit").on("click",on_click)
     text("",id="output")
+
+title = "Datalist"
+description = '''
+## datalist(value,id = "myDataList")
+1. Datalist elementi. Html'deki datalist elementine karşılık gelir. İçerisine elemanlar eklenerek kullanılır.
+
+| attr          | desc                                              |
+| :------------ | :------------------------------------------------ |
+| id            | Datalist elementinin id'si                        |
+| value         | Datalist elementinin içeriği                      |
+'''

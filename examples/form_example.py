@@ -1,5 +1,4 @@
-from uix.elements import form, div, button, label, input, grid, col, textarea
-from uix.elements._form import title, description, sample as code
+from uix.elements import form, div, button, label, input, grid, col
 
 def submit_form(ctx, id, value):
     print("Form submitted")
@@ -28,6 +27,20 @@ def form_example():
             
                 button("Submit", type="submit").style("margin-top","10px")
     return main
+            
+title = "Form"
+description = '''
+## form(value,id,action,method,enctype)
+1. Temel form elementi.
+
+| attr          | desc                                              |
+| :------------ | :------------------------------------------------ |
+| value         | Formun içeriği                                    |
+| id            | Formun id'si                                      |
+| action        | Form submit edildiğinde verilerin nereye gönderileceğini belirtir.                                            |
+| method        | Form verilerini gönderirken kullanılacak HTTP yöntemini belirtir (get,post)                                   |
+| enctype       | Form verilerinin sunucuya gönderilirken nasıl kodlanması gerektiğini belirtir (yalnızca method = "post" için) |
+'''
 
 
     

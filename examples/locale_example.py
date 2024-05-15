@@ -1,6 +1,6 @@
-from uix.elements import div, button, row # type: ignore
-import uix
+from uix.elements import div, button, row
 from uix import T
+import uix
 example_menu = ["Main", "File", "Help", "About", "Turkish", "English"]
 
 def draw_menu():
@@ -18,4 +18,9 @@ def locale_example():
     with div("",) as locale_example:
         with row("", id ="menu_example") as menu:
             draw_menu()
-    
+
+title = "Locale"
+description = '''
+## Locale
+1. Uygulamanın dilini değiştirmek için kullanılır.
+'''

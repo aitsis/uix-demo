@@ -1,6 +1,7 @@
 
 import uix
-from uix.elements import container, canvas, text, border, row
+from uix.elements import container, canvas, text, border
+
 WIDTH = 500
 HEIGHT = 500
 SCALE = 1
@@ -39,3 +40,10 @@ def events_example():
             canvas1.size(WIDTH,HEIGHT).on("keydown",on_key_down).attr("tabindex",0)
         text("",id="events1").size("100%",150)
     return main
+
+title = "Events"
+description = '''
+## Events
+1. on(event_name,action) metodu ile elementlere event ekleyebilirsiniz.
+2. on metodu ile eklenen eventlerde action fonksiyonu ctx, id, value parametrelerini alır.
+'''

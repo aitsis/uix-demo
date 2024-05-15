@@ -1,8 +1,5 @@
-import uix
-from uix.elements import file, div, image, col, row, progress, check, button, container
-from uix.elements._file import title, description, sample as code
+from uix.elements import file, div, image, row, progress, check, container
 
-from uix.core.file import File 
 def lineitem(value):
     div(value).style("padding","5px;")
     
@@ -65,5 +62,18 @@ def file_example():
         div("Files:", id="files").style("margin-top","10px")
     return root
 
+title = "File"
+description = """
+## file(value,id = None, multiple = False, save_path = None, on_upload_done = None, on_upload_started = None, on_error = None, accept = None)
+1. File elementi. Bir dosya seçme penceresi açar.
+
+| attr                 | desc                                                               |
+| :------------------- | :----------------------------------------------------------------- |
+| value                | Elementin içeriği.                                                 |
+| id                   | Elementin id'si                                                    |
+| multiple             | Birden fazla dosya seçilmesine izin verir.                         |
+| accept               | Seçilebilecek dosya tiplerini belirtir.                            |
+| callback             | Dosya seçildiğinde çağrılacak fonksiyon.                           |
+"""
 
          

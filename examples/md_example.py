@@ -1,5 +1,4 @@
 from uix.elements import md
-from uix.elements._md import title, description, sample as code
 
 def md_example():
     main = md('''# Hello World!
@@ -12,3 +11,14 @@ def hello_world_example():
 ```
                ''')
     return main
+
+title = "Markdown"
+description = '''
+## md(value,id)
+1. Markdown elementi. Markdown dilinde yazılmış metni html'e çevirir.
+
+| attr          | desc                                              |
+| :------------ | :------------------------------------------------ |
+| id            | Markdown elementinin id'si                        |
+| value         | Markdown elementinin içeriği                      |
+'''

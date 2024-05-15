@@ -1,5 +1,4 @@
-from uix.elements import unorderedlist, listitem # type: ignore
-from uix.elements._listitem import title, description, sample as code
+from uix.elements import unorderedlist, listitem
 
 fake_data = [
     {
@@ -39,3 +38,16 @@ def listitem_example():
         global fake_data
         for item in fake_data:
             listitem(item["name"], id=item["id"])
+
+title = "List Item"
+description = '''
+## listitem(value,id)
+1. Liste elemanı elementi. Sıralı liste elementine veya sırasız liste elementine eleman eklemek için kullanılır.
+
+| attr          | desc                                                       |
+| :------------ | :--------------------------------------------------------- |
+| id            | Liste elemanının id'si                                     |
+| value         | Liste elemanının içeriği                                   |
+| attributes    | Liste elemanına ait attribute'lar                          |
+| attrs["class"]| Liste elemanına ait class'lar. Varsayılan değer: list-item |
+'''

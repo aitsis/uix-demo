@@ -1,4 +1,3 @@
-from uix_components._button_group._button_group import title, description, sample as code
 from uix_components import button_group
 from uix.elements import text, col
 
@@ -48,7 +47,26 @@ text_btn_group = {
 }
 
 def button_group_example():
-        with col().style("gap","5px"): 
-            button_group(items=icon_btn_group,id="custom-button-section-1")
-            button_group(items=text_btn_group,id="custom-button-section-2")
-            text("",id="text1")
+    with col().style("gap","5px"): 
+        button_group(items=icon_btn_group,id="custom-button-section-1")
+        button_group(items=text_btn_group,id="custom-button-section-2")
+        text("",id="text1")
+
+title = "Button Group"
+description = """
+ # button_section(id, items)
+ 1. Button Section bir button komponentidir. Style'lar dict, class'lar string olarak verilir.
+    | attr          | desc                                                            |
+    | :------------ | :-----------------------------------------------------          |
+    | id            | Komponentin id'si                                               |
+    | items         | Komponentin içindeki iconların dict olarak verilmesi gerekiyor. |
+    | onClick       | Komponentin değeri değiştiğinde çalışacak fonksiyon             |
+    | row_classes   | Komponentin içine row class tanımlamak için kullanılır.         |
+    | row_styles    | Komponentin içine row style tanımlamak için kullanılır.         |
+    | icon_styles   | Komponentin içine icon style tanımlamak için kullanılır.        |
+    | btn_classes   | Komponentin içine button class tanımlamak için kullanılır.      |
+    | btn_styles    | Komponentin içine button style tanımlamak için kullanılır.      |
+    | btn_id        | Komponentin içine button id tanımlamak için kullanılır.         |
+    | text_styles   | Komponentin içine text style tanımlamak için kullanılır.        |
+    | text_classes  | Komponentin içine text class tanımlamak için kullanılır.        |
+"""

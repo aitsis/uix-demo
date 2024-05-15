@@ -1,7 +1,6 @@
 import uix
-from uix.elements import div, button, row
+from uix.elements import button, row
 from uix_components import address_form
-from uix_components._address_form._address_form import title, description, sample as code
 
 def getformdata(self, id, ctx, data):
     print("Form Data:", data)
@@ -23,5 +22,14 @@ def address_form_example():
             button(id="tur", value="Turkish").on("click",change_lang )
         with row(id="form_example") as form:
             draw_form()
-        
     return main
+
+title = "Address Form"
+description = """
+# address_form(id)
+1. Address Form Componenti
+    | attribute     | desc                                                   |
+    |---------------|--------------------------------------------------------|
+    | id            | Komponentin id'si                                      |
+    | callback      | Form submit edildiğinde çağırılacak fonksiyon          |
+"""  

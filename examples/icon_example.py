@@ -12,7 +12,6 @@ def icon_example():
         icon("fa-solid fa-house fa-10x")
 
 title = "Icon"
-
 description = '''
 ## icon(value,id = None)
 1. Icon elementi. Html'deki i elementine karşılık gelir. Fontawesome sınıfları kullanılarak svg iconlar oluşturulabilir.
@@ -28,18 +27,3 @@ description = '''
 | id            | Icon elementinin id'si                            |
 | value         | Fontawesome sitesinden alınan classlar kullanılır |
 '''
-
-code = """
-from uix.elements import div, icon,text # type: ignore
-
-def icon_example():
-    with div():
-        icon("fa-solid fa-house fa-1x")
-        icon("fa-solid fa-house fa-2x")
-        icon("fa-solid fa-house fa-3x")
-        icon("fa-solid fa-house").style("font-size","30px").style("color","var(--ait)")
-        icon("fa-solid fa-house fa-5x")
-        text("Merhaba").cls("fa-shake")
-        icon("fa-solid fa-house fa-7x fa-bounce")
-        icon("fa-solid fa-house fa-10x")
-"""

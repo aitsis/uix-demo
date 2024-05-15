@@ -1,4 +1,3 @@
-from uix_components._cropper_dialog._cropper_dialog import title, description, sample as code
 from uix_components._cropper_dialog._cropper_dialog import cropper_dialog
 from uix_components._input_image._input_image import input_image
 from uix.elements import button, col
@@ -23,5 +22,14 @@ def cropper_dialog_example():
         input_image(id="input-image-crop", callback=upload_done).style("height","500px")
         button("Crop", id="crop-button").on("click", lambda ctx, id, value: ctx.elements["cropper_dialog"].show())
 
-
+title = "Cropper Dialog"
+description = """
+# cropper_dialog(id, image_url, callback)
+1. Cropper dialog bir image'ı crop etmek için kullanılır. Dialog içerisinde image'ı crop edebilir ve sonucu alabilirsiniz.
+    | attr          | desc                                                                                                 |
+    | :------------ | :-----------------------------------------------------------------------------------------------     |
+    | id           | Element id.                                                                                           |
+    | callback     | Crop işlemi bittiğinde çağrılacak fonksiyon, bu fonksiyonun value değeri croplanmış image url içerir. |
+    | image_url    | Cropper'ın başlangıçta göstereceği image url.                                                         |
+"""
            

@@ -1,7 +1,6 @@
 import random
 from uix_components import image_viewer
 from uix.elements import file, row, button,div
-from uix_components._image_viewer._image_viewer import title, description, sample as code
 
 buttonGroup= {
     "Zoom in": {
@@ -75,3 +74,17 @@ def create_image():
     # Apply a slight blur to smooth out the gradients
     image = image.filter(ImageFilter.GaussianBlur(2))
     return image
+
+title = "Image Viewer"
+description = """
+## image_viewer(id: str, value: str, buttonGroup: dict, zoom: bool, size: tuple)
+1. Verilen resmi gösteren bir image viewer oluşturur.
+
+| attr                  | desc                                                                |
+| :-------------------- | :------------------------------------------------                   |
+| id                    | image_viewer elementinin id'si                                      |
+| value                 | image_viewer elementinin göstereceği image url'si veya Image objesi |
+| buttonGroup           | image_viewer elementinin sağ üst köşesindeki buton grubu            |
+| zoom                  | image_viewer elementinin zoom yapılmasını sağlar.                   |
+| size                  | image_viewer elementinin boyutu. (width, height)                    |
+"""
