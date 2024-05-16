@@ -8,6 +8,23 @@ import uix
 import os
 import re
 uix.html.add_css_file("uix_demo.css", __file__)
+uix.html.add_script("uix-demo-js","""
+event_handlers["init-search-area"] = function(ctx, value, id){
+                    console.log(value);
+    const searchArea = document.getElementById(value.search_area_id);
+    const input = document.getElementById(value.advanced_search_id);
+    input.addEventListener('focus', function() {
+        searchArea.classList.remove('hidden');
+    });
+
+    document.addEventListener('click', function(event) {
+        if (!input.contains(event.target)) {
+            searchArea.classList.add('hidden');
+            console.log("outside");
+        }
+    });
+}
+""",False)
 
 def extract_code_from_file(file_path):
     unwanted_keywords = ["title", "description"]
@@ -166,9 +183,6 @@ def route_checker():
     ctx = context.session.context
 
 
-def open_search_area(ctx, id, value):
-    ctx.elements["search-area"].toggle_class("hidden")
-
 def _root():
     route_checker()
     with row():
@@ -178,8 +192,12 @@ def _root():
         with col().cls("main-content"):
             with row().style("height: 10%; justify-content: end; position: relative; justify-content: center;"):
                 input_ = input(id="advanced-search", placeholder="Advanced Search", type="search", autocomplete= False).cls("search-input")
-                input_.on("input", update_search_area).on("click", open_search_area)
-                with div(id="search-area").cls("border hidden area"):
+                input_.on("input", update_search_area)
+                with div(id="search-area").cls("border hidden area") as search_area:
+                    search_area.init = lambda: context.session.queue_for_send(search_area.id, {
+                        'search_area_id': search_area.id,
+                        'advanced_search_id': input_.id
+                    }, "init-search-area")
                     with div(id="search-content").cls("area-content"):
                         text("Search examples by title or code")
 
