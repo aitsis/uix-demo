@@ -2,7 +2,6 @@ import uix
 import random
 from uix.elements import button,row
 from uix_components import chart_scatter
-from uix_components._chart_scatter._chart_scatter import title, description, sample as code
 
 scatter1= [{
       'x': -10,
@@ -42,3 +41,30 @@ def chart_scatter_example():
             for i in range(len(button_value)):
                 button(id = f"btn_0{i}", value = button_value[i]).on("click", update)
         chart_scatter(id = "chart1", value=charts[chart_index], options=options).size("90%","90%").cls("border")
+
+title = "Chart Scatter"
+description = """
+# chart_line(id, value=None, options=None)
+1. Chart Line bir chart komponentidir.
+    | attr          | desc                                                              |
+    | :------------ | :---------------------------------------------------------------  |
+    | id            | Komponentin id'si                                                 |
+    | value         | Chart verisi                                                      |
+    | options       | Chart'ın opsiyonları                                              |
+    
+```python
+    #options kullanım örneği:
+    options = {
+        "responsive" : True,    #Pencere boyutu değiştiğinde chart'ın yeniden boyutlandırılması
+        "legend_pos" : "Top",   #Grafikte görünen veri kümlerinin açıklamalarının konumu(örn: 1.Dataset)
+        "title" : "2024"        #Grafik başlığı
+        }
+```
+
+```python
+    #value kullanım örnekleri:
+	value = [{'x':-10, 'y':0}, {'x':0, 'y':10}, {'x':10, 'y':5}, {'x':0.5, 'y':5.5}]
+	# Scatter Chart'ı kullanmak için verilerin X ve Y özelliklerini içeren nesneler olarak iletilmesi gerekir.
+	# Yukarıdaki örnek 4 noktalı bir scatter grafiği oluşturur.
+```
+"""

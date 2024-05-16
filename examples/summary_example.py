@@ -1,5 +1,4 @@
 from uix.elements import summary, details, label
-from uix.elements._summary import title, description, sample as code
 
 def summary_example():
     with details() as summary_example:
@@ -7,4 +6,13 @@ def summary_example():
         label(value="Details Content")
     return summary_example
 
+title = "Summary"
+description = '''
+## summary(value,id = None)
+1. Summary elementi. Details elementinin açıklama başlığı olarak kullanılan bir elementtir.
 
+| attr          | desc                                             |
+| :------------ | :------------------------------------------------|
+| id            | Summary elementinin id'si                        |
+| value         | Summary elementinin içeriği                      |
+'''

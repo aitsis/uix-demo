@@ -1,10 +1,19 @@
 from uix_components import basic_datalist
-from uix_components._basic_datalist._basic_datalist import title, description, sample as code
+
+options = ["BMW","AUDI","MERCEDES"]
+
 def basic_datalist_example():
-    options = ["BMW","AUDI","MERCEDES"]
-    options_dict = [
-        {"id": "1", "value": "OPEL"}, 
-        {"id": "2", "value": "FORD"}, 
-        {"id": "3", "value": "VOLKSWAGEN"}]
-    return basic_datalist(name="Car List", id = "datalist", options = options, 
-                          callback = lambda ctx, id, value: print(f"Datalist {id} changed to: {value}"))
+    basic_datalist(name="Car List", id = "dl-1", options = options, callback = lambda ctx, id, value: print(f"Datalist {id} changed to: {value}"))
+
+title = "Basic Datalist"
+description = """
+# basic_datalist(name, value, id, options[], callback)
+1. Input elementinin içerinde datalist elementi eklenerek oluşturulan bir componenttir. option elementi ile datalist'in içi doldurulur.
+    | attr          | desc                                                          |
+    | :------------ | :------------------------------------------------------------ |
+    | name          | Datalist Componentinin name'i input'un önünde yazar           |
+    | value         | Datalist Componentinin içeriği                                |
+    | id            | Datalist Componentinin id'si                                  |
+    | option        | Datalist Componentinin liste elemanlarını array olarak alır   |
+    | callback      | Listeden bir seçim yapıldıığında çağırılacak fonksiyon        |
+"""

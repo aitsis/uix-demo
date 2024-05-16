@@ -1,5 +1,4 @@
 from uix.elements import page, header, main, footer, text,div
-from uix.elements._page import title, description, sample as code
 
 def page_example():
     with div().size("100%","60vh") as example_page:
@@ -12,3 +11,14 @@ def page_example():
                 text("Footer Example")
     return example_page
 
+
+title = "Page"
+description = '''
+## page(value,id)
+1. Page elementi. İçi boş bir ana div oluşturur. Sıfırdan bir sayfa oluşturmak için kullanılabilir. İçerisine elemanlar eklenerek kullanılır.
+
+| attr          | desc                                           |
+| :------------ | :----------------------------------------------|
+| id            | Page elementinin id'si                         |
+| value         | Page elementinin içeriği                       |
+'''

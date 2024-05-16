@@ -1,7 +1,5 @@
 import uix
-from uix.elements import div, button, text, svg, icon, span, textarea, label # type: ignore
-from uix.elements._button import title, description, sample as code
-from uix_components import tooltip
+from uix.elements import div, button, svg, icon
 
 uix.html.add_css("svg_button",'''
 .btn-svg-demo{
@@ -10,7 +8,6 @@ uix.html.add_css("svg_button",'''
         width: 38px;
         height: 38px;
 }
-
 ''')
 
 button_demo_svg = '<g><path fill="#ffffff" d="M256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512zM216 336h24V272H216c-13.3 0-24-10.7-24-24s10.7-24 24-24h48c13.3 0 24 10.7 24 24v88h8c13.3 0 24 10.7 24 24s-10.7 24-24 24H216c-13.3 0-24-10.7-24-24s10.7-24 24-24zm40-208a32 32 0 1 1 0 64 32 32 0 1 1 0-64z"/></g>'
@@ -35,3 +32,17 @@ def button_example():
         button("Disabled", disabled=True)
 
     return main
+    
+title = "Button"
+description = '''
+## button(value,id = None, type='button', formID=None, disabled=False)
+1. Temel buton elementi.
+
+| attr          | desc                                            |
+| :------------ | :-----------------------------------------------|
+| id            | Buton elementinin id'si                         |
+| value         | Buton elementinin içeriği                       |
+| type          | Buton elementinin tipi                          |
+| formID        | Buton elementinin ait olduğu formun id'si       |
+| disabled      | Buton elementinin etkinliğini kapatır           |
+'''

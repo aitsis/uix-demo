@@ -48,3 +48,7 @@ def md_playground_example():
           textarea(id = "text", value=options[0]["example"]).on("input", on_change).size("100%", "300px")        
           md(id = "preview", value=options[0]["example"]).size("100%", "300px").style("overflow: auto")
      
+title = "Markdown Playground"
+description = """
+## Markdown denemelerinizi burada yapabilirsiniz.
+"""

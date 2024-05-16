@@ -1,5 +1,4 @@
 from uix.elements._textarea import textarea
-from uix.elements._textarea import title, description, sample as code
 from uix.elements._div import div
 
 def textarea_example():
@@ -11,3 +10,15 @@ def on_change(ctx, id, value):
     print("Changed", id, value)
     ctx.elements["test"].value = value
     ctx.elements["test"].update()
+
+title = "Textarea"
+description = """
+## textarea(value,id,placeholder)
+1. Temel textarea elementi.
+
+| attr          | desc                                              |
+| :------------ | :------------------------------------------------ |
+| id            | Textarea elementinin id'si                          |
+| value         | Textarea elementinin içeriği                       |
+| placeholder   | Textarea elementinin placeholder değeri            |
+"""

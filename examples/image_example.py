@@ -1,5 +1,4 @@
 from uix.elements import image, col, text
-from uix.elements._image import title, description, sample as code
 
 def image_example():
     image_url = "https://ai.ait.com.tr/wp-content/uploads/AIT_AI_LOGO.png"
@@ -37,3 +36,14 @@ def create_image():
     # Apply a slight blur to smooth out the gradients
     image = image.filter(ImageFilter.GaussianBlur(2))
     return image
+
+title = "Image"
+description = '''
+## image(value,id = None)
+1. Html'deki img elementine karşılık gelir. Sayfada görüntülenmesi istenen resimler için kullanılır.
+
+| attr          | desc                                              |
+| :------------ | :------------------------------------------------ |
+| id            | Image elementinin id'si                          |
+| value         | Image elementinin src'si                       |
+'''

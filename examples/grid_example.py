@@ -1,5 +1,5 @@
 from uix.elements import div, button, grid
-from uix.elements._grid import title, description, sample as code
+
 counter = 0
 def next_counter():
     global counter
@@ -30,3 +30,16 @@ def grid_example():
     with div("") as main:
         comp1()
     return main
+
+title = "Grid"
+description = '''
+## grid(value,id,columns,rows)
+1. Grid elementi. Grid özelliğinde bir div oluşturur. column ve row değerleri girilerek içerisindeki elemanlar grid özelliğine göre konumlandırılır.
+
+| attr          | desc                                                                |
+| :------------ | :----------------------------------------------------------------   |
+| id            | Grid elementinin id'si                                              |
+| value         | Grid elementinin içeriği                                            |
+| columns       | Grid elementinin sütun değerlerini belirler. Örneğin: "150px 600px" |
+| rows          | Grid elementinin satır değerlerini belirler. Örneğin: "150px 600px" |
+'''

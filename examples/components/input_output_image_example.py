@@ -1,9 +1,6 @@
-import uix
 from uix.elements import col, button,row
 from uix_components import input_image
 from uix_components import output_image
-
-
 
 def run(ctx, id, value):
     input_img=ctx.elements["input_image_test"]
@@ -22,3 +19,8 @@ def input_output_image_example():
 
         button("Run",id="run").cls("btn btn-primary").on("click", run)
     return input_output_image_test
+
+title = "Input Output Image"
+description = '''
+Input Output Image example, resim yükleme ve gösterme işlemlerini gösterir.
+'''

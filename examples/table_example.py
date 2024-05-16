@@ -1,6 +1,5 @@
 import uix
-from uix.elements import table, tr, td, tbody, th, thead, row # type: ignore
-from uix.elements._table import title, description, sample as code
+from uix.elements import table, tr, td, tbody, th, thead, row
 
 uix.html.add_css("custom-table","""
 :root {
@@ -99,4 +98,15 @@ def table_example():
                         td(item["name"])
                         td(item["username"])
                         td(item["email"])
+
+title = "Table"
+description = '''
+## table(value,id = None)
+1. Table elementi. Html'deki table elementine karşılık gelir. İçerisine elemanlar eklenerek kullanılır.
+
+| attr          | desc                                            |
+| :------------ | :-----------------------------------------------|
+| id            | Table elementinin id'si                         |
+| value         | Table elementinin içeriği                       |
+'''
                     

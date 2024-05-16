@@ -45,11 +45,8 @@ def component_example(id=None,value="Hello World!"):
         comp_example3(value)
     return main
 
-title="Component Example"
+title="Custom Component"
 
 description = '''
-    Component example shows how to create a component with the Element class.
+    Custom component example, nasıl bir custom component oluşturulacağını gösterir.
 '''
-code = """
-    Component Example
-"""

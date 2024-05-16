@@ -1,4 +1,3 @@
-from uix_components._basic_table._basic_table import title, description, sample as code
 from uix_components import basic_table
 from uix.elements import div
 
@@ -13,3 +12,15 @@ def basic_table_example():
     with div() as table_example:
         basic_table(id= "basic_table_example", headers=headers, data=data)
     return table_example
+
+title="Basic Table"
+description="""
+## basic_table(id, headers, data)
+1. Verilen başlık ve satırlara göre tablo oluşturur.
+
+| attr          | desc                                                          |
+| :------------ | :------------------------------------------------------------ |
+| id            | Tablo elementinin id'si                                       |
+| headers       | Tablo başlıklarını içeren liste                               |
+| data          | Tablo satırlarını içeren liste                                |
+"""

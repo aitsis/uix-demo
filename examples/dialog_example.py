@@ -1,6 +1,4 @@
 from uix.elements import dialog, container, button, text
-from uix.elements._dialog import title, description, sample as code
-
 
 def dialog_example1():
     with dialog(id="dialog_example",close_on_outside=True) as dialog1:
@@ -23,3 +21,15 @@ def dialog_example2():
 def dialog_example():
     dialog_example1()
     dialog_example2()
+
+title = "Dialog"
+description = '''
+## dialog(value,id = None, is_clickable_anywhere = True)
+1. Dialog elementi. Bir dialog penceresi açar.
+
+| attr                  | desc                                             |
+| :-------------------- | :------------------------------------------------|
+| id                    | Dialog elementinin id'si                         |
+| value                 | Dialog elementinin içeriği                       |
+| close_on_outside      | Dışarı tıklanınca kapanma özelliği               |
+'''
