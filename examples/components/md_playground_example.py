@@ -1,5 +1,4 @@
-import uix
-from uix_components import image_viewer, basic_alert, basic_select
+from uix_components import basic_select
 from uix.elements import col, md, textarea
 
 options = [
