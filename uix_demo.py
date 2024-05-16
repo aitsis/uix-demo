@@ -1,5 +1,5 @@
 from uix.elements import link, main, div, input, md, row, col, text
-from uix_components._codemirror.codemirror import codemirror
+from uix_components._codemirror._codemirror import codemirror
 from uix_components import tree_view
 from uix.core.session import context
 import pandas as pd
