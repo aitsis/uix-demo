@@ -4,6 +4,8 @@ from uix.elements import text,row,col, label,table, thead, tr, th, td,input,butt
 payload = {}
 config = {
         "pageLength": 15,
+        "language": {
+            "search": "",},
         "layout": {
             "topStart": {
                 "buttons": [
