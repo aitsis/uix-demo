@@ -74,6 +74,15 @@ data = [
     },
    
     ]
+
+cols = {
+    "name": "Name",
+    "surname": "Surname",
+    "company": "Company",
+    "phone": "Phone",
+    "isVerified": "Is Verified",
+    "package": "Package"
+}
 def data_table_example():
     basic_dialog(id = "myDialog",elements=[lambda: row(id="dialog-content")], close_on_outside = False).style("width: max-content; height: max-content; padding: 1rem;")
     with col().style("gap: 1rem;"):
@@ -85,12 +94,12 @@ def data_table_example():
         with col().style("gap: 1rem;"):
             label("Data Table Example 2").cls("point")
             text("Özel ayarlarla oluşturulmuş örnek data table.")
-            data_table(id="example-table2", data=data, config=config)
+            data_table(id="example-table2", data=data, config=config, cols=cols)
 
         with col().style("gap: 1rem;"):
             label("Data Table Example 3").cls("point")
             text("Edit edilebilir data table örneği.")
-            data_table(id="example-table3", data=data, callback=show_row_data ,dialog_id="myDialog")
+            data_table(id="example-table3", data=data, callback=show_row_data ,dialog_id="myDialog", cols=cols)
 
 def show_row_data(ctx, id, value):
     row_data = value["data"]
@@ -136,5 +145,7 @@ description = """
 4. Eğer callback parametresi verilirse, açılacak olan **dialog_id** parametresi verilmelidir.
 5. Eğer config parametresi verilirse, datatable için özel ayarlar yapılabilir verilmezse varsayılan ayarlar kullanılır.
 7. Data tabledaki **update_table** fonksiyonuna yeni veri listesi verilerek tablo güncellenebilir.
+8. **cols** parametresi verilirse, tablo başlıkları ve sütun isimleri belirlenebilir. Veri listesindeki elemanların keyleri ile eşleşmelidir.
+9. Eğer **cols** parametresi verilmezse, tablo başlıkları ve sütun isimleri veri listesindeki elemanların keyleri alınarak oluşturulur.
 
 """
