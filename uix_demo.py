@@ -7,6 +7,13 @@ import importlib
 import uix
 import os
 import re
+
+
+routes = [
+    "examples",
+    "components"
+]
+
 uix.html.add_css_file("uix_demo.css", __file__)
 uix.html.add_script("uix-demo-js","""
 event_handlers["init-search-area"] = function(ctx, value, id){
@@ -71,9 +78,10 @@ tree_view_items = {
 }
 for key in examples.keys():
     tree_view_items["Examples"]["Elements"].append({all_items[key]["example_title"] : key })
+    routes.append("examples/" + key)
 for key in components.keys():
     tree_view_items["Examples"]["Components"].append({all_items[key]["example_title"] : key })
-
+    routes.append("components/" + key)
 lists = [
     {
         "title": "examples",
@@ -208,4 +216,4 @@ def _root():
                         render_content()
     
 
-uix.start(ui = _root, config = {"debug":True})
+uix.start(ui = _root, config = {"debug":True}, routes=routes)
