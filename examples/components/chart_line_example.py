@@ -66,6 +66,13 @@ description = """
         "legend_pos" : "Top",   #Grafikte görünen veri kümlerinin açıklamalarının konumu(örn: 1.Dataset)
         "title" : "2024"        #Grafik başlığı
         "tension" : 0.4         #Çizgilerin eğimini ayarlar
+        "datalabels_display": True, #Grafikteki verilerin üzerinde değerlerinin görünürlüğünü kontrol eder [True, False, 'auto']
+        "datalabels_anchor": 'center', #Değerlerin konumu [center, start, end]
+        "datalabels_align": 'end',  #Değerlerin hizalaması [center, start, end, right, left, top, bottom]
+        "datalabels_color": 'black', #Değerlerin rengi
+        "datalabels_font_family": 'Arial', #Değerlerin fontu
+        "datalabels_font_size": 20, #Değerlerin font büyüklüğü
+        "datalabels_font_weight": 'bold', #Değerlerin font kalınlığı [normal, bold, bolder, lighter, number]
         }
 ```
 ```python
